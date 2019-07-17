@@ -1,0 +1,18 @@
+# extensions
+*.pyc
+*.log
+*.jpg
+*.png
+*.gif
+*.geojson
+
+# files
+.DS_Store
+robots.txt
+map/tiles
+images/
+# directories
+**/.sass-cache
+**/.sass-cache/*
+
+# allow

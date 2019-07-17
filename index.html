@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Test - Map</title>
+
+<link rel="stylesheet" href="css/leaflet.css" type="text/css"/>
+<link rel="stylesheet" href="css/treat2.css" type="text/css"/>
+
+<script   src="js/jquery-3.1.1.min.js"></script>
+
+<!-- <script src="js/application.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="js/leaflet.js"></script>
+<script type="text/javascript" src="js/site-list-json.js"></script>
+
+</head>
+
+<body >
+
+<div class="map-empty">
+	<div class="map-wrapper">
+		<section class="map-control-panel">
+			<p>control panel</p>
+		</section>
+
+		<section class="map-area">
+			<div id="mapdiv">
+				<p>map goes here</p>
+
+			</div>
+		</section>
+
+	</div><!--map-wrapper-->
+
+	<section class="map-locations-panel">
+
+		<h2 class="heading">Links to Markers</h2>
+		<p><a id="prev-item" href="hitch">Prev</a> | <a id="next-item" href="holy">Next</a></p>
+
+		<div id="site_list" class="map-scroll">
+
+			<p><strong>Amherst Home of the Hitchcocks</strong> </p>
+			<img src="images/menupics/residence-hitchcocks-amherst.jpg">
+			<p>The Hitchcocks lived in this house on South Pleasant street in Amherst until Edward was elected president, and to this house they returned, after resigning the presidency, to spend the remainder of their lives. The house was at first a plain building with no wings and a small porch in front. Between 1836 and 1840 Edward built the octagon as a place to work and to display his private collection.</p>
+
+		</div>
+
+	</section>
+
+</div> <!-- map empty -->
+
+<script src="js/treat2.js" type="text/javascript"></script>
+
+<!-- <script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('sw.js')
+             .then(function() { console.log("Service Worker Registered"); });
+  }
+</script>
+ -->
+</body>
+</html>

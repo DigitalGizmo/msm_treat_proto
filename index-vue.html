@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Test - Map</title>
+
+<link rel="stylesheet" href="css/leaflet.css" type="text/css"/>
+<link rel="stylesheet" href="css/treat2.css" type="text/css"/>
+
+<script   src="js/jquery-3.1.1.min.js"></script>
+
+<!-- <script src="js/application.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="js/leaflet.js"></script>
+<script type="text/javascript" src="js/site-list-json.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+</head>
+
+<body >
+
+<div class="map-empty">
+	<div class="map-wrapper">
+		<section class="map-control-panel">
+			<p>control panel</p>
+		</section>
+
+		<section class="map-area">
+			<div id="mapdiv">
+				<p>map goes here</p>
+
+			</div>
+		</section>
+
+	</div><!--map-wrapper-->
+
+	<section class="map-locations-panel">
+
+		<h2 class="heading">Links to Markers</h2>
+		<p><a id="prev-item" href="hitch">Prev</a> | <a id="next-item" href="holy">Next</a></p>
+
+		<div id="site_list" class="map-scroll">
+
+
+			<p><strong>{{ title }} </strong> </p>
+			<!-- <img src="images/menupics/residence-hitchcocks-amherst.jpg"> -->
+			<p v-html="entImage"></p>
+			<p v-html="mapBlurb"></p>
+			<p>vue will fill in here. {{ message1 }} </p>
+
+		</div>
+
+	</section>
+
+	<section>
+		<div id="app2" class="map-scroll">
+			<p>Debug follows:</p>
+			<p v-html="message"></p>		
+		</div>
+	</section>
+
+</div> <!-- map empty -->
+
+<script src="js/treat-vue.js" type="text/javascript"></script>
+
+</body>
+</html>
