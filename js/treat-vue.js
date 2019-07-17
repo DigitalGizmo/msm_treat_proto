@@ -182,7 +182,7 @@ function setSites(siteListJson) {
 
 setSites(siteListJson);
 
-// ---- VUE ---
+// ----------------- VUE -------------------------------
 // "use strict"
 
 var currEntIndex = 0
@@ -191,10 +191,30 @@ var jrnEntry = new Vue({
 	el: "#site_list",
 	data: {
 		entry       : "",
-		message1	: " well then",
+		message1	: "test next",
 		title		: "title",
 		mapBlurb   : "blurb",
 		entImage   : "temp"
+	},
+	methods: {
+		// changeEntry: function(currEntIndex, zoomLevel) {
+		changeEntry: function() {
+			// temp
+			currEntIndex += 1
+
+			this.entry = siteListJson[currEntIndex];
+			this.title = siteListJson[currEntIndex].title;
+			this.mapBlurb = siteListJson[currEntIndex].map_blurb;
+			this.entImage = imagify(siteListJson[currEntIndex].slug);
+			// jrnEntry.entry = siteListJson[3]
+			console.log(" -- slug: " + siteListJson[currEntIndex].slug);
+
+			treatmap.setView([
+				siteListJson[currEntIndex].latitude, 
+				siteListJson[currEntIndex].longitude
+				], 10) // zoom level hard coded until we pass args
+
+		},
 	}
 })
 
@@ -234,7 +254,6 @@ $(document).on("click", "#prev-item", function(event){
 function goToEntry(currEntIndex, zoomLevel){
 	console.log(" -- currEntIndex: " + currEntIndex);
 	jrnEntry.entry = siteListJson[currEntIndex];
-	jrnEntry.message1 = siteListJson[currEntIndex].slug;
 	jrnEntry.title = siteListJson[currEntIndex].title;
 	jrnEntry.mapBlurb = siteListJson[currEntIndex].map_blurb;
 	jrnEntry.entImage = imagify(siteListJson[currEntIndex].slug);

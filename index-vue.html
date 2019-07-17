@@ -41,9 +41,14 @@
 	<section class="map-locations-panel">
 
 		<h2 class="heading">Links to Markers</h2>
-		<p><a id="prev-item" href="hitch">Prev</a> | <a id="next-item" href="holy">Next</a></p>
+		<p><a id="prev-item" href="hitch">Prev</a> | 
+			<a id="next-item" href="holy">Next</a> 
+		</p>
+		<p>dubug to follow</p>
+
 
 		<div id="site_list" class="map-scroll">
+			<p @click="changeEntry" v-text="message1"></p>
 
 
 			<p><strong>{{ title }} </strong> </p>
