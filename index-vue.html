@@ -43,24 +43,20 @@
 		<h2 class="heading">Links to Markers</h2>
 		<p>
 			<!-- <a id="prev-item" href="hitch">Prev</a>  -->
-			<a href = "#" v-on:click.prevent = "changeEntry('prev')">Prev</a>
+			<a href = "#" v-on:click.prevent = "incrementEntry('prev')">Prev</a>
 			| 
 
 			<!-- <a id="next-item" href="holy">Next</a>  -->
-			<a href = "#" v-on:click.prevent = "changeEntry('next')">Next</a>
+			<a href = "#" v-on:click = "incrementEntry('next')">Next</a>
 
 
 		</p>
 
 		<div class="map-scroll">
-			<p @click="changeEntry('next')" v-text="message1"></p>
-
-
 			<p><strong>{{ title }} </strong> </p>
 			<!-- <img src="images/menupics/residence-hitchcocks-amherst.jpg"> -->
 			<p v-html="entImage"></p>
 			<p v-html="mapBlurb"></p>
-			<p>vue will fill in here. {{ message1 }} </p>
 
 		</div>
 

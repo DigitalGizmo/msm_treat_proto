@@ -192,33 +192,41 @@ var jrnEntry = new Vue({
 	el: "#entry-panel",
 	data: {
 		entry       : "",
-		message1	: "test next",
+		// message1	: "test next",
 		title		: "title",
 		mapBlurb   : "blurb",
 		entImage   : "temp"
 	},
 	methods: {
-		
-		// changeEntry: function(currEntIndex, zoomLevel) {
-		changeEntry: function(nextOrPrev) {
+
+		// incrementEntry: function(currEntIndex, zoomLevel) {
+		incrementEntry: function(nextOrPrev) {
 			// temp
 			if(nextOrPrev == 'next') {
-				currEntIndex += 1
+				// currEntIndex += 1
+				// Temp hard code zoom level - will eventually be in data.
+				this.setEntry(currEntIndex + 1, 10)
 			} else {
-				currEntIndex -= 1
+				// currEntIndex -= 1
+				this.setEntry(currEntIndex - 1, 10)
 			}
+
+		},
+		setEntry: function(newEntIndex, zoomLevel) {
+			// change to vue data?
+			currEntIndex = newEntIndex;
 
 			this.entry = siteListJson[currEntIndex];
 			this.title = siteListJson[currEntIndex].title;
 			this.mapBlurb = siteListJson[currEntIndex].map_blurb;
 			this.entImage = imagify(siteListJson[currEntIndex].slug);
 			// jrnEntry.entry = siteListJson[3]
-			console.log(" -- slug: " + siteListJson[currEntIndex].slug);
+			// console.log(" -- slug: " + siteListJson[currEntIndex].slug);
 
 			treatmap.setView([
 				siteListJson[currEntIndex].latitude, 
 				siteListJson[currEntIndex].longitude
-				], 10) // zoom level hard coded until we pass args
+				], zoomLevel) // zoom level hard coded until we pass args
 
 		},
 	}
@@ -235,8 +243,8 @@ console.log("siteListJson[0].slug: " + siteListJson[0].slug);
 // jrnEntry.entry = jrnEntry.hitch
 
 jrnEntry.entry = siteListJson[currEntIndex]
-jrnEntry.changeEntry('next')
-// goToEntry(currEntIndex, 9);
+// jrnEntry.incrementEntry('next')
+jrnEntry.setEntry(0, 9)
 
 
 // ------- temp navigation ----
