@@ -188,7 +188,8 @@ setSites(siteListJson);
 var currEntIndex = 0
 
 var jrnEntry = new Vue({
-	el: "#site_list",
+	// el: "#site_list",
+	el: "#entry-panel",
 	data: {
 		entry       : "",
 		message1	: "test next",
@@ -197,10 +198,15 @@ var jrnEntry = new Vue({
 		entImage   : "temp"
 	},
 	methods: {
+		
 		// changeEntry: function(currEntIndex, zoomLevel) {
-		changeEntry: function() {
+		changeEntry: function(nextOrPrev) {
 			// temp
-			currEntIndex += 1
+			if(nextOrPrev == 'next') {
+				currEntIndex += 1
+			} else {
+				currEntIndex -= 1
+			}
 
 			this.entry = siteListJson[currEntIndex];
 			this.title = siteListJson[currEntIndex].title;
@@ -229,54 +235,54 @@ console.log("siteListJson[0].slug: " + siteListJson[0].slug);
 // jrnEntry.entry = jrnEntry.hitch
 
 jrnEntry.entry = siteListJson[currEntIndex]
-goToEntry(currEntIndex, 9);
+jrnEntry.changeEntry('next')
+// goToEntry(currEntIndex, 9);
 
 
 // ------- temp navigation ----
 
-$(document).on("click", "#next-item", function(event){
-	// console.log("--- got to next-item");
-	event.preventDefault();
-	currEntIndex += 1
-	// goNext(chosen_href);
-	goToEntry(currEntIndex, 10);
-});
+// $(document).on("click", "#next-item", function(event){
+// 	// console.log("--- got to next-item");
+// 	event.preventDefault();
+// 	currEntIndex += 1
+// 	// goNext(chosen_href);
+// 	goToEntry(currEntIndex, 10);
+// });
 
 
-$(document).on("click", "#prev-item", function(event){
-	event.preventDefault();
-	// var chosen_href = $(event.target).attr('href');
-	currEntIndex -= 1
-	// goPrev(chosen_href);
-	goToEntry(currEntIndex, 10);
-});
+// $(document).on("click", "#prev-item", function(event){
+// 	event.preventDefault();
+// 	// var chosen_href = $(event.target).attr('href');
+// 	currEntIndex -= 1
+// 	// goPrev(chosen_href);
+// 	goToEntry(currEntIndex, 10);
+// });
 
-function goToEntry(currEntIndex, zoomLevel){
-	console.log(" -- currEntIndex: " + currEntIndex);
-	jrnEntry.entry = siteListJson[currEntIndex];
-	jrnEntry.title = siteListJson[currEntIndex].title;
-	jrnEntry.mapBlurb = siteListJson[currEntIndex].map_blurb;
-	jrnEntry.entImage = imagify(siteListJson[currEntIndex].slug);
-	// jrnEntry.entry = siteListJson[3]
-	console.log(" -- slug: " + siteListJson[currEntIndex].slug);
+// function goToEntry(currEntIndex, zoomLevel){
+// 	console.log(" -- currEntIndex: " + currEntIndex);
+// 	jrnEntry.entry = siteListJson[currEntIndex];
+// 	jrnEntry.title = siteListJson[currEntIndex].title;
+// 	jrnEntry.mapBlurb = siteListJson[currEntIndex].map_blurb;
+// 	jrnEntry.entImage = imagify(siteListJson[currEntIndex].slug);
+// 	// jrnEntry.entry = siteListJson[3]
+// 	console.log(" -- slug: " + siteListJson[currEntIndex].slug);
 
-	// treatmap.setView([
-	// 	jrnEntry.entry = siteListJson[currEntIndex].latitude, 
-	// 	jrnEntry.entry = siteListJson[currEntIndex].longitude
-	// 	], 10)
+// 	// treatmap.setView([
+// 	// 	jrnEntry.entry = siteListJson[currEntIndex].latitude, 
+// 	// 	jrnEntry.entry = siteListJson[currEntIndex].longitude
+// 	// 	], 10)
 
-	treatmap.setView([
-		siteListJson[currEntIndex].latitude, 
-		siteListJson[currEntIndex].longitude
-		], zoomLevel)
-}
+// 	treatmap.setView([
+// 		siteListJson[currEntIndex].latitude, 
+// 		siteListJson[currEntIndex].longitude
+// 		], zoomLevel)
+// }
 
 // test
 
-var app2 = new Vue({
-	el: "#app2",
-	data: {
-		message: "Whello Don"
-	}
-}
-)
+// var app2 = new Vue({
+// 	el: "#app2",
+// 	data: {
+// 		message: "Whello Don"
+// 	}
+// })
