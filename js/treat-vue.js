@@ -185,112 +185,54 @@ setSites(siteListJson);
 // ----------------- VUE -------------------------------
 // "use strict"
 
-var currEntIndex = 0
+// var currEntIndex = 0
+
+Vue.component('journal-item', {
+	// Prop variable name is touchy -- needs to be neither camelCase nor kebob-case
+	props: ['anentry'],
+
+	template: `
+		<div class="map-scroll">
+			<p><strong>{{ anentry.title }} </strong> </p>
+			<img v-bind:src="'images/menupics/' + anentry.slug + '.jpg'" />
+			<span v-html="anentry.map_blurb"></span>
+		</div>
+	`
+})
 
 var jrnEntry = new Vue({
-	// el: "#site_list",
 	el: "#entry-panel",
 	data: {
 		entry       : "",
-		// message1	: "test next",
-		title		: "title",
-		mapBlurb   : "blurb",
-		entImage   : "temp"
+		currIndex : 0
 	},
 	methods: {
 
 		// incrementEntry: function(currEntIndex, zoomLevel) {
 		incrementEntry: function(nextOrPrev) {
-			// temp
 			if(nextOrPrev == 'next') {
-				// currEntIndex += 1
 				// Temp hard code zoom level - will eventually be in data.
-				this.setEntry(currEntIndex + 1, 10)
+				this.setEntry(this.currIndex + 1, 10)
 			} else {
-				// currEntIndex -= 1
-				this.setEntry(currEntIndex - 1, 10)
+				this.setEntry(this.currIndex - 1, 10)
 			}
-
 		},
 		setEntry: function(newEntIndex, zoomLevel) {
-			// change to vue data?
-			currEntIndex = newEntIndex;
-
-			this.entry = siteListJson[currEntIndex];
-			this.title = siteListJson[currEntIndex].title;
-			this.mapBlurb = siteListJson[currEntIndex].map_blurb;
-			this.entImage = imagify(siteListJson[currEntIndex].slug);
-			// jrnEntry.entry = siteListJson[3]
-			// console.log(" -- slug: " + siteListJson[currEntIndex].slug);
-
+			// Set the current journal entry index.
+			this.currIndex = newEntIndex;
+			// Update data to contain new journal entry
+			this.entry = siteListJson[this.currIndex];
+			// Set the new map zoom location
 			treatmap.setView([
-				siteListJson[currEntIndex].latitude, 
-				siteListJson[currEntIndex].longitude
-				], zoomLevel) // zoom level hard coded until we pass args
-
-		},
+				siteListJson[this.currIndex].latitude, 
+				siteListJson[this.currIndex].longitude
+				], zoomLevel) 
+		}
 	}
 })
 
-// imagify returns the corresponding emoji image
-function imagify(slug) {
-  var out = `<img src="images/menupics/` + slug + `.jpg">`
-  return out
-}
+// console.log("siteListJson[0].slug: " + siteListJson[0].slug);
 
-
-console.log("siteListJson[0].slug: " + siteListJson[0].slug);
-// jrnEntry.entry = jrnEntry.hitch
-
-jrnEntry.entry = siteListJson[currEntIndex]
-// jrnEntry.incrementEntry('next')
+jrnEntry.entry = siteListJson[0]
 jrnEntry.setEntry(0, 9)
 
-
-// ------- temp navigation ----
-
-// $(document).on("click", "#next-item", function(event){
-// 	// console.log("--- got to next-item");
-// 	event.preventDefault();
-// 	currEntIndex += 1
-// 	// goNext(chosen_href);
-// 	goToEntry(currEntIndex, 10);
-// });
-
-
-// $(document).on("click", "#prev-item", function(event){
-// 	event.preventDefault();
-// 	// var chosen_href = $(event.target).attr('href');
-// 	currEntIndex -= 1
-// 	// goPrev(chosen_href);
-// 	goToEntry(currEntIndex, 10);
-// });
-
-// function goToEntry(currEntIndex, zoomLevel){
-// 	console.log(" -- currEntIndex: " + currEntIndex);
-// 	jrnEntry.entry = siteListJson[currEntIndex];
-// 	jrnEntry.title = siteListJson[currEntIndex].title;
-// 	jrnEntry.mapBlurb = siteListJson[currEntIndex].map_blurb;
-// 	jrnEntry.entImage = imagify(siteListJson[currEntIndex].slug);
-// 	// jrnEntry.entry = siteListJson[3]
-// 	console.log(" -- slug: " + siteListJson[currEntIndex].slug);
-
-// 	// treatmap.setView([
-// 	// 	jrnEntry.entry = siteListJson[currEntIndex].latitude, 
-// 	// 	jrnEntry.entry = siteListJson[currEntIndex].longitude
-// 	// 	], 10)
-
-// 	treatmap.setView([
-// 		siteListJson[currEntIndex].latitude, 
-// 		siteListJson[currEntIndex].longitude
-// 		], zoomLevel)
-// }
-
-// test
-
-// var app2 = new Vue({
-// 	el: "#app2",
-// 	data: {
-// 		message: "Whello Don"
-// 	}
-// })
