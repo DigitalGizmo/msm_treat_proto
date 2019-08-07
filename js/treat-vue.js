@@ -187,6 +187,19 @@ setSites(siteListJson);
 
 // var currEntIndex = 0
 
+// Vue.component('journal-nav', {
+// 	props: ['anentry'],
+// 	template: `
+// 		<p>
+// 			<template v-if="true" style="display: block;"> 
+// 				<a href = "#" v-on:click.prevent = "jrnEntry.incrementEntry('prev')">Prev</a> | 
+// 			</template>
+// 			<a href = "#" v-on:click = "jrnEntry.incrementEntry('next')">Next</a>
+// 		</p>
+
+// 	`	
+// })
+
 Vue.component('journal-item', {
 	// Prop variable name is touchy -- needs to be neither camelCase nor kebob-case
 	props: ['anentry'],
