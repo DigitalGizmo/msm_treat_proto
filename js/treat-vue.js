@@ -4,7 +4,8 @@
 // ---------- MAP ----------
 
 var treatmap;
-// var markerList = []; // on a level with map, markers can be accessed by index
+var markerList = []; // on a level with map, markers can be accessed by index
+var siteMarkers ;
 
 var impBounds = [
 	[40.55, -74], // southWest
@@ -113,7 +114,7 @@ function setSites(siteListJson) {
 	console.log("siteListJson[0].slug: " + siteListJson[0].slug);
 
 	// var siteLinks = '<ul class="map-sites">';
-	// markerList = [];
+	markerList = [];
 	for (var i = 0; i < siteListJson.length; i++) {
 
 		// create HTML for popup
@@ -130,21 +131,49 @@ function setSites(siteListJson) {
 			// add marker
 			// L.marker([51.49, -0.1], {icon: orangeIcon}).bindPopup("I am an orange leaf.").addTo(map);
 
-			// This is the direct, non-array way.
-			L.marker([siteListJson[i].latitude, 
-				siteListJson[i].longitude]).addTo(treatmap).on("click", function(e) {
-				  goNext("holy");
-				});
+			// // This is the direct, non-array way.
+			// L.marker([siteListJson[i].latitude, 
+			// 	siteListJson[i].longitude]).addTo(treatmap).on("click", function(e) {
+			// 	  goNext("holy");
+			// 	});
+
+
+
 				// siteListJson[i].longitude]).bindPopup(popHtml).addTo(treatmap).on('click', goNext);
 				// siteListJson[i].longitude]).bindPopup().addTo(treatmap).on('click', goNext);
 				// siteListJson[i].longitude]).addTo(treatmap).on('click', goNext);
 				// L.marker([42.76, 20.52],[...]).on("click", function(e) {
 				//   circleClick(e, parameter1, parameter2);
 				// });
+
+
+
 			// We're creating the array so that we have an index in order to pop it up
 			// custom markers:   ..siteListJson[i].longitude], {icon: greenIcon}).bindPopup(popHtml));
+
 			// markerList.push(L.marker([siteListJson[i].latitude, 
-			// 	siteListJson[i].longitude]).bindPopup(popHtml));
+			// 	siteListJson[i].longitude]).bindPopup("hello")
+
+			// );
+
+			markerList.push(L.marker([siteListJson[i].latitude, 
+				 siteListJson[i].longitude]).addTo(treatmap).on("click", function(e) { 
+				 	// goNext("holy");
+				 	console.log(" - marker index: " + i);
+				 	// v-on:click = "incrementEntry('next')"
+
+				 	// Prop need all code in vue for this to work
+				 	// jrnEntry.setEntry(i, 10);
+
+				 	// Temporarily this works, prob because it's not defined until afer siteListJson is defined
+				 	jrnEntry.incrementEntry('next');
+
+				 })
+				
+			);
+
+
+
 
 			// add to HTML for site list links
 	// 		siteLinks += '<li><a class="site_link" href="' + i + '">' +
@@ -153,6 +182,12 @@ function setSites(siteListJson) {
 	// 		siteLinks += '<li>' + siteListJson[i].title + " (missing lat, long)</li>" // site_info.title		
 	// 	}
 	} // end for 
+
+	siteMarkers = L.layerGroup(markerList);
+	siteMarkers.addTo(treatmap);
+
+
+
 	// siteLinks += "</ul>";
 
 	// set site links for sidebar
