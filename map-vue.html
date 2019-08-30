@@ -48,23 +48,6 @@
  -->
 
 
-		<div
-		  class="form-check"
-		  v-for="layer in layers"
-		  :key="layer.id"
-		>
-			<!-- label and input elements go here -->
-			<label class="form-check-label">
-				<input
-					class="form-check-input"
-					type="checkbox"
-					v-model="layer.active"
-					@change="layerChanged(layer.id, layer.active)"
-				/>
-				{{ layer.name }}
-			</label>
-		</div>
-
 
 	</section>
 </div> <!-- map empty -->

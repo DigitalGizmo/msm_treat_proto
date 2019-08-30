@@ -42,11 +42,14 @@ new Vue({
 	mounted() { 
 		this.initMap();
 		this.initLayers();
+		this.addLayer();
 	},
 
 	methods: { 
 		initMap() {
+
 			this.map = L.map('mapdiv').setView([42.0, -72.6], 9);
+
 			this.tileLayer = L.tileLayer(
 			  'map/tiles/hitchcock1834/{z}/{x}/{y}.png',
 			  {
@@ -66,61 +69,30 @@ new Vue({
 			// // ECMAscript 6 using arrow functions
 			// var a3 = a.map( s => s.length );
 
+			// Need to understand => and "this" better
+			this.layers[0].features.forEach((feature) => {
+			// this.layers[0].features.forEach(function(feature) {
 
-			this.markerList = [];
+				// console.log(" - lat: " + feature.latitude); // feature.coords
+				feature.hamObject = L.marker([feature.latitude, feature.longitude])
+					.on("click", function(e) { 
+					 	// goNext("holy");
+					 	console.log(" - marker name: " + feature.name);
 
-			// this.layers[0].features.forEach((feature) => {
-			this.layers[0].features.forEach(function(feature) {
-
-				console.log(" - lat: " + feature.latitude); // feature.coords
-				feature.leafletObject = L.marker([feature.latitude, feature.longitude])
-					.bindPopup(feature.name);
-				// // feature.leafletObject.addTo(this.map);
-
-				// // This is the direct, non-array way.
-				// L.marker([feature.latitude, 
-				// 	feature.longitude]).addTo(this.map).on("click", function(e) {
-				// 	  // goNext("holy");
-				// 	  console.log(" -- clicked marker");
-				// 	});
-
-
-
-				// this.markerList.push(L.marker([feature.latitude, 
-				// 	 feature.longitude]).addTo(this.map).on("click", function(e) { 
-				// 	 	// goNext("holy");
-				// 	 	console.log(" - marker index: " + i);
-				// 	 	// v-on:click = "incrementEntry('next')"
-
-				// 	 	// Prop need all code in vue for this to work
-				// 	 	// jrnEntry.setEntry(i, 10);
-
-				// 	 	// Temporarily this works, prob because it's not defined until afer siteListJson is defined
-				// 	 	// jrnEntry.incrementEntry('next');
-
-				// 	 })
-					
-				// );
+					 });
 
 			});
-			// siteMarkers = L.layerGroup(markerList);
-			// siteMarkers.addTo(treatmap);
 
 		},
-		layerChanged(layerId, active) { 
-			const layer = this.layers.find(layer => layer.id === layerId);
-
-			layer.features.forEach((feature) => {
-			  /* Show or hide the feature depending on the active argument */
-
-				if (active) {
-				  feature.leafletObject.addTo(this.map);
-				} else {
-				  feature.leafletObject.removeFrom(this.map);
-				}
-
+		addLayer() {
+			// Don't know why I have to add the features later, but it works.
+			// this.layers[0].features.forEach(function(feature) {
+			// Above doesn't work -- must be related to the "this" diff treatment
+			this.layers[0].features.forEach((feature) => {
+				// console.log(" -- fadd longitude: " + feature.longitude);
+				feature.hamObject.addTo(this.map);
 			});
 		},
 
-	},
+	}, // end methods
 });
