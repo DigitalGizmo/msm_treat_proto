@@ -9,6 +9,7 @@
 # files
 .DS_Store
 robots.txt
+map/
 map/tiles
 images/
 # directories

@@ -38,30 +38,30 @@ var mapApp = new Vue({
 				features: [
 					{
 					  id: 0,
-					  name: 'amherst-college',
+					  name: 'appleton-cabinet',
 					  type: 'marker',
-					  title: "Amherst College",
-					  latitude: 45.5,
-					  longitude: -69.5,
-					  map_blurb: "<p>[vue-data]: Amherst College was founded in 1821 and is the third oldest college in Massachusetts. Edward Hitchcock was its third president and donated his huge collection of fossil tracks to the college where it can be seen today.</p>",
+					  title: "Start",
+					  latitude: 45,
+					  longitude: -68.9524,
+					  map_blurb: "<p>[vue-data]: Appleton Cabinet opened in 1855. It was constructed specifically to house the college&apos;s natural history collection, including Edward Hitchcock&apos;s collection of fossil &quot;bird tracks,&quot; now identified as dinosaur footprints. The building was later converted for academic use and currently is a dormitory. The beautiful geological collections are at the Beneski Museum, just down the hill on campus.</p>"
 					},
 					{
 					  id: 1,
-					  name: 'residence-hitchcocks-amherst',
+					  name: 'amherst-college',
 					  type: 'marker',
-					  title: "Amherst Home of the Hitchcocks",
-					  latitude: 45.2,
-					  longitude: -69.7,
-					  map_blurb: "<p>The Hitchcocks lived in this house on South Pleasant street in Amherst until Edward was elected president, and to this house they returned, after resigning the presidency, to spend the remainder of their lives. The house was at first a plain building with no wings and a small porch in front. Between 1836 and 1840 Edward built the octagon as a place to work and to display his private collection.</p>",
+					  title: "Mt. Katahdin",
+					  latitude: 45.9005,
+					  longitude:  -68.9256,
+					  map_blurb: "<p>Amherst College was founded in 1821 and is the third oldest college in Massachusetts. Edward Hitchcock was its third president and donated his huge collection of fossil tracks to the college where it can be seen today.</p>",
 					},
 					{
 					  id: 2,
-					  name: 'appleton-cabinet',
+					  name: 'residence-hitchcocks-amherst',
 					  type: 'marker',
-					  title: "Appleton Cabinet",
-					  latitude: 45,
-					  longitude: -69.8,
-					  map_blurb: "<p>Appleton Cabinet opened in 1855. It was constructed specifically to house the college&apos;s natural history collection, including Edward Hitchcock&apos;s collection of fossil &quot;bird tracks,&quot; now identified as dinosaur footprints. The building was later converted for academic use and currently is a dormitory. The beautiful geological collections are at the Beneski Museum, just down the hill on campus.</p>"
+					  title: "Penobscot River",
+					  latitude: 45.9498,
+					  longitude: -69.1892,
+					  map_blurb: "<p>The Hitchcocks lived in this house on South Pleasant street in Amherst until Edward was elected president, and to this house they returned, after resigning the presidency, to spend the remainder of their lives. The house was at first a plain building with no wings and a small porch in front. Between 1836 and 1840 Edward built the octagon as a place to work and to display his private collection.</p>",
 					},
 				], // end features
 			}, // end first layer
@@ -78,7 +78,7 @@ var mapApp = new Vue({
 	methods: { 
 		initMap() {
 
-			this.map = L.map('mapdiv').setView([45.0, -69], 8);
+			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, -68.9524], 8);
 
 			this.tileLayer = L.tileLayer(
 			  // 'map/tiles/hitchcock1834/{z}/{x}/{y}.png',
