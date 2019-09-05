@@ -40,13 +40,22 @@ var mapApp = new Vue({
 					  id: 0,
 					  name: 'appleton-cabinet',
 					  type: 'marker',
-					  title: "Start",
-					  latitude: 45,
-					  longitude: -68.9524,
+					  title: "Start - Bangor",
+					  latitude: 44.7971185,
+					  longitude: -68.767824,
 					  map_blurb: "<p>[vue-data]: Appleton Cabinet opened in 1855. It was constructed specifically to house the college&apos;s natural history collection, including Edward Hitchcock&apos;s collection of fossil &quot;bird tracks,&quot; now identified as dinosaur footprints. The building was later converted for academic use and currently is a dormitory. The beautiful geological collections are at the Beneski Museum, just down the hill on campus.</p>"
 					},
 					{
-					  id: 1,
+					  id: 6,
+					  name: 'day-two',
+					  type: 'marker',
+					  title: "First stop",
+					  latitude: 44.880163,
+					  longitude:  -68.659326,
+					  map_blurb: "<p>[Don't see a note on whether this is the same day, Sunday, as the first entry.]</p>",
+					},
+					{
+					  id: 10,
 					  name: 'amherst-college',
 					  type: 'marker',
 					  title: "Mt. Katahdin",
@@ -78,7 +87,8 @@ var mapApp = new Vue({
 	methods: { 
 		initMap() {
 
-			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, -68.9524], 8);
+			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, 
+				this.layers[0].features[0].longitude], 8);
 
 			this.tileLayer = L.tileLayer(
 			  // 'map/tiles/hitchcock1834/{z}/{x}/{y}.png',
