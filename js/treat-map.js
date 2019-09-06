@@ -110,13 +110,14 @@ var mapApp = new Vue({
 			// var a3 = a.map( s => s.length );
 
 			// Need to understand => and "this" better
-			this.layers[0].features.forEach((feature) => {
+			this.layers[0].features.forEach((feature, index) => {
 			// this.layers[0].features.forEach(function(feature) {
 				// console.log(" - lat: " + feature.latitude); // feature.coords
 				feature.hamObject = L.marker([feature.latitude, feature.longitude])
 					.on("click", function(e) { 
 					 	// console.log(" - marker name: " + feature.name);
-					 	mapApp.setEntry(feature.id, 10);
+					 	// mapApp.setEntry(feature.id, 10);
+					 	mapApp.setEntry(index, 10);
 				});
 			});
 		},
