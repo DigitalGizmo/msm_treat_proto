@@ -33,12 +33,16 @@
 
 	<section id="entry-panel" class="map-locations-panel">
 
-		<h2 class="heading">Links to Markers</h2>
+		<h2 class="heading">Journal Entries</h2>
 		<!-- <journal-nav v-bind:anentry="entry"></journal-nav> -->
 		<p>
 
-<!-- 	
- -->
+		<label for="id_1">
+			<input id="id_1" name="overlay" type="checkbox" value="checked" checked="true" />Greenleaf Map
+		</label>
+		<label for="id_2">
+			<input id="id_2" name="overlay" type="checkbox" value="huh"  />Current Roads &amp; Towns
+		</label>
 
 		<template v-if="true" style="display: block;"> 
 			<a href = "#" v-on:click.prevent = "incrementEntry('prev')">Prev</a> | 

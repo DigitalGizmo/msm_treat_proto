@@ -19,6 +19,7 @@ var mapApp = new Vue({
 		currIndex : 0,
 		// map
 		map: null,
+		terrainLayer: null,
 		tileLayer: null,
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
 		entry: {
@@ -89,7 +90,19 @@ var mapApp = new Vue({
 
 			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, 
 				this.layers[0].features[0].longitude], 8);
-
+			// Terrain
+			this.terrainLayer = L.tileLayer(
+			  'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-'
+				+ 'background/{z}/{x}/{y}.png',
+			  {
+		    	minZoom: 7,
+			    maxZoom: 12,
+				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, '
+						+ '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; '
+						+ 'Map data &copy; ' 
+						+ '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',		  }			
+			);
+			// Greenleaf 1815
 			this.tileLayer = L.tileLayer(
 			  // 'map/tiles/hitchcock1834/{z}/{x}/{y}.png',
 			  'map/tiles/treat/{z}/{x}/{y}.png',
@@ -100,6 +113,7 @@ var mapApp = new Vue({
 			    attribution: 'Treat map'
 			  }
 			);
+			this.terrainLayer.addTo(this.map);
 			this.tileLayer.addTo(this.map);
 		},
 		initLayers() {
