@@ -19,8 +19,11 @@ var mapApp = new Vue({
 		currIndex : 0,
 		// map
 		map: null,
+		baseLayer: null,
 		terrainLayer: null,
-		tileLayer: null,
+		greenleafLayer: null,
+		whichLayer: "greenleaf",
+		roadsShowing: false,
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
 		entry: {
 					  id: 0,
@@ -90,6 +93,14 @@ var mapApp = new Vue({
 
 			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, 
 				this.layers[0].features[0].longitude], 8);
+			// // Base Layer
+			// this.baseLayer = L.tileLayer(
+			//   'https://api.mapbox.com/styles/v1/mapbox/donaldo/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIzNmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
+			//   {
+		 //    	minZoom: 7,
+			//     maxZoom: 12,
+			// 	attribution: 'Mapbox Don',		  }			
+			// );
 			// Terrain
 			this.terrainLayer = L.tileLayer(
 			  'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-'
@@ -103,7 +114,7 @@ var mapApp = new Vue({
 						+ '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',		  }			
 			);
 			// Greenleaf 1815
-			this.tileLayer = L.tileLayer(
+			this.greenleafLayer = L.tileLayer(
 			  // 'map/tiles/hitchcock1834/{z}/{x}/{y}.png',
 			  'map/tiles/treat/{z}/{x}/{y}.png',
 			  {
@@ -113,8 +124,8 @@ var mapApp = new Vue({
 			    attribution: 'Treat map'
 			  }
 			);
-			this.terrainLayer.addTo(this.map);
-			this.tileLayer.addTo(this.map);
+			// this.baseLayer.addTo(this.map);
+			this.greenleafLayer.addTo(this.map);
 		},
 		initLayers() {
 			// // Old-school:
@@ -171,6 +182,17 @@ var mapApp = new Vue({
 			// this.entry = siteListJson[0]
 			this.entry = this.layers[0].features[0];
 			// this.setEntry(0, 9)
+		},
+		layerChanged: function() {
+			// console.log("- got to layerChanged: " + this.whichLayer);
+			// whichLayer is changed by v-model and radio values
+			if(this.whichLayer == "terrain") {
+				this.greenleafLayer.removeFrom(this.map);
+				this.terrainLayer.addTo(this.map);			
+			} else {
+				this.terrainLayer.removeFrom(this.map);
+				this.greenleafLayer.addTo(this.map);			
+			}
 		},
 
 	}, // end methods
