@@ -212,13 +212,13 @@ var mapApp = new Vue({
 			}
 		},
 		roadsChanged: function() {
-			// console.log("- got to roadsChanged: " + this.whichLayer);
+			console.log("- got to roadsShowing: " + this.roadsShowing);
 			// roadsShowing is changed by v-model and checkbox value
-			if(this.roadsShowing) {
-				this.roads.addTo(this.map);			
-			} else {
-				this.roads.removeFrom(this.map);
-			}
+			// if(this.roadsShowing) {
+			// 	this.roads.addTo(this.map);			
+			// } else {
+			// 	this.roads.removeFrom(this.map);
+			// }
 		},
 
 	}, // end methods
