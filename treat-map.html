@@ -65,7 +65,13 @@
 		</div>
 
 		<label for="id_2">
-			<input id="id_2" name="overlay" type="checkbox" v-model="roadsShowing"/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
+			<input 
+				id="id_2" 
+				name="overlay" 
+				type="checkbox" 
+				v-model="roadsShowing"
+				v-on:change="roadsChanged()"
+			/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
 		</label>
 
 		<template v-if="true" style="display: block;"> 
@@ -82,6 +88,7 @@
 </div> <!-- map empty -->
 
 <script type="text/javascript" src="js/leaflet.js"></script>
+<script type="text/javascript" src="js/tangram.min.js"></script>
 <!-- <script type="text/javascript" src="js/site-list-json.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 

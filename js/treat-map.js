@@ -22,6 +22,7 @@ var mapApp = new Vue({
 		baseLayer: null,
 		terrainLayer: null,
 		greenleafLayer: null,
+		roads: null,
 		whichLayer: "greenleaf",
 		roadsShowing: false,
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
@@ -124,9 +125,25 @@ var mapApp = new Vue({
 			    attribution: 'Treat map'
 			  }
 			);
+		    // Adding vector tiled roads via Tangram - layer parameters, source, etc... 
+		    // are defined in scene.yaml file
+		    this.roads = Tangram.leafletLayer({
+		        // scene: '/static/js/map_assets/cinnabar-style.yaml',
+		        scene: 'js/roads.yaml',
+		        // scene: '/static/js/map_assets/scene.yaml',
+		        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> '
+		        + '| &copy; OSM contributors | <a href="https://mapzen.com/" '
+		        + 'target="_blank">Mapzen</a>',
+				// bounds: mybounds,
+				minZoom: 9,
+				maxZoom: 13
+		    }), 
+
+
 			// this.baseLayer.addTo(this.map);
 			this.greenleafLayer.addTo(this.map);
-		},
+			// this.roads.addTo(this.map);
+		}, // end init map
 		initLayers() {
 			// // Old-school:
 			// var a2 = a.map(function(s){ return s.length });
@@ -192,6 +209,15 @@ var mapApp = new Vue({
 			} else {
 				this.terrainLayer.removeFrom(this.map);
 				this.greenleafLayer.addTo(this.map);			
+			}
+		},
+		roadsChanged: function() {
+			// console.log("- got to roadsChanged: " + this.whichLayer);
+			// roadsShowing is changed by v-model and checkbox value
+			if(this.roadsShowing) {
+				this.roads.addTo(this.map);			
+			} else {
+				this.roads.removeFrom(this.map);
 			}
 		},
 
