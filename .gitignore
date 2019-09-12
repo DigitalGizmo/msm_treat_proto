@@ -5,14 +5,16 @@
 *.png
 *.gif
 *.geojson
+*.topojson
 
 # files
 .DS_Store
 robots.txt
+# directories
 map/
 map/tiles
 images/
-# directories
+js/topojson
 **/.sass-cache
 **/.sass-cache/*
 

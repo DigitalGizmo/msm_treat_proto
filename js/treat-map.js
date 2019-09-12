@@ -94,6 +94,7 @@ var mapApp = new Vue({
 
 			this.map = L.map('mapdiv').setView([this.layers[0].features[0].latitude, 
 				this.layers[0].features[0].longitude], 8);
+			// this.map = L.map('mapdiv').setView([42.0, -72.6], 9);
 			// // Base Layer
 			// this.baseLayer = L.tileLayer(
 			//   'https://api.mapbox.com/styles/v1/mapbox/donaldo/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIzNmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
@@ -135,13 +136,16 @@ var mapApp = new Vue({
 		        + '| &copy; OSM contributors | <a href="https://mapzen.com/" '
 		        + 'target="_blank">Mapzen</a>',
 				// bounds: mybounds,
-				minZoom: 9,
-				maxZoom: 13
+				minZoom: 7,
+				maxZoom: 12
 		    }), 
 
 
 			// this.baseLayer.addTo(this.map);
+
 			this.greenleafLayer.addTo(this.map);
+
+			// this.map.addLayer(this.roads);
 			// this.roads.addTo(this.map);
 		}, // end init map
 		initLayers() {
@@ -215,7 +219,9 @@ var mapApp = new Vue({
 			console.log("- got to roadsShowing: " + this.roadsShowing);
 			// roadsShowing is changed by v-model and checkbox value
 			// if(this.roadsShowing) {
-			// 	this.roads.addTo(this.map);			
+			// 	// this.roads.addTo(this.map);	
+			// 	this.map.addLayer(this.roads);	
+			// 	this.roads.bringToFront();	
 			// } else {
 			// 	this.roads.removeFrom(this.map);
 			// }
