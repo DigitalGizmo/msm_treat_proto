@@ -79,7 +79,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 72,
 					  shortName: 'neso-falls',
-					  zoomLevel: 11,
+					  zoomLevel: 12,
 					  title: "Nesowadnehunk Falls",
 					  lat: 45.84633, 
 					  lon:  -69.03056,
@@ -90,7 +90,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 74,
 					  shortName: 'neso-camp',
-					  zoomLevel: 11,
+					  zoomLevel: 12,
 					  title: "Remain in Camp",
 					  lat: 45.84615, 
 					  lon:  -69.03522,
@@ -101,7 +101,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 80,
 					  shortName: 'chee-inlet',
-					  zoomLevel: 10,
+					  zoomLevel: 11,
 					  title: "Cheesuncook Inlet",
 					  lat: 46.052, 
 					  lon:  -69.34847,
@@ -112,7 +112,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 82,
 					  shortName: 'umba-pond',
-					  zoomLevel: 12,
+					  zoomLevel: 11,
 					  title: "Umbazookskus Pond",
 					  lat: 46.14653, 
 					  lon:  -69.3497,
@@ -132,17 +132,6 @@ var mapApp = new Vue({
 					  month: 'October',
 					  day: '',
 					  jrnText: "<p>Amherst College was founded in 1821 and is the third oldest college in Massachusetts. Edward Hitchcock was its third president and donated his huge collection of fossil tracks to the college where it can be seen today.</p>",
-					},
-					{
-					  ordinal: 105,
-					  shortName: 'residence-hitchcocks-amherst',
-					  zoomLevel: 10,
-					  title: "Penobscot River",
-					  lat: 45.9498,
-					  lon: -69.1892,
-					  month: 'October',
-					  day: '',
-					  jrnText: "<p>The Hitchcocks lived in this house on South Pleasant street in Amherst until Edward was elected president, and to this house they returned, after resigning the presidency, to spend the remainder of their lives. The house was at first a plain building with no wings and a small porch in front. Between 1836 and 1840 Edward built the octagon as a place to work and to display his private collection.</p>",
 					},
 				], // end features
 			}, // end first layer
@@ -230,7 +219,7 @@ var mapApp = new Vue({
 					.on("click", function(e) { 
 					 	// console.log(" - marker name: " + feature.name);
 					 	// mapApp.setEntry(feature.id, 10);
-					 	mapApp.setEntry(index, 10);
+					 	mapApp.setEntry(index);
 				});
 			});
 		},
@@ -246,12 +235,12 @@ var mapApp = new Vue({
 		incrementEntry: function(nextOrPrev) {
 			if(nextOrPrev == 'next') {
 				// Temp hard code zoom level - will eventually be in data.
-				this.setEntry(this.currIndex + 1, 10)
+				this.setEntry(this.currIndex + 1)
 			} else {
-				this.setEntry(this.currIndex - 1, 10)
+				this.setEntry(this.currIndex - 1)
 			}
 		},
-		setEntry: function(newEntIndex, zoomLevel) {
+		setEntry: function(newEntIndex) {
 			// Set the current journal entry index.
 			this.currIndex = newEntIndex;
 
@@ -264,7 +253,7 @@ var mapApp = new Vue({
 			mapApp.map.setView([
 				this.entry.lat, 
 				this.entry.lon
-				], zoomLevel) 
+				], this.entry.zoomLevel) 
 		},
 		initContent: function() {
 			// this.entry = siteListJson[0]
