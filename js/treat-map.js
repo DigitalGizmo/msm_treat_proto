@@ -45,14 +45,25 @@ var mapApp = new Vue({
 				features: [
 					{
 					  ordinal: 0,
-					  shortName: 'appleton-cabinet',
-					  zoomLevel: 10,
+					  shortName: 'intro',
+					  zoomLevel: 8,
+					  title: "Joseph Treat's Journal",
+					  lat: 45,
+					  lon: -68.767824,
+					  month: 'September',
+					  day: '16',
+					  jrnText: "<p>Intro do the project.</p>"
+					},
+					{
+					  ordinal: 1,
+					  shortName: 'bangor',
+					  zoomLevel: 9,
 					  title: "Start - Bangor",
 					  lat: 44.7971185,
 					  lon: -68.767824,
 					  month: 'September',
 					  day: '',
-					  jrnText: "<p>[vue-data]: Appleton Cabinet opened in 1855. It was constructed specifically to house the college&apos;s natural history collection, including Edward Hitchcock&apos;s collection of fossil &quot;bird tracks,&quot; now identified as dinosaur footprints. The building was later converted for academic use and currently is a dormitory. The beautiful geological collections are at the Beneski Museum, just down the hill on campus.</p>"
+					  jrnText: "<p>Bangor, 16th Sept. 1820</p><p>This day received Instructions from His Excellency William King, dated the 11th instant, directing me to preceed up the Penobscot...</p>"
 					},
 					{
 					  ordinal: 2,
@@ -79,7 +90,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 72,
 					  shortName: 'neso-falls',
-					  zoomLevel: 12,
+					  zoomLevel: 11,
 					  title: "Nesowadnehunk Falls",
 					  lat: 45.84633, 
 					  lon:  -69.03056,
@@ -90,7 +101,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 74,
 					  shortName: 'neso-camp',
-					  zoomLevel: 12,
+					  zoomLevel: 11,
 					  title: "Remain in Camp",
 					  lat: 45.84615, 
 					  lon:  -69.03522,
@@ -99,9 +110,20 @@ var mapApp = new Vue({
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis </p>",
 					},
 					{
+					  ordinal: 76,
+					  shortName: 'nolan-pond',
+					  zoomLevel: 10,
+					  title: "Nolangamick Pond",
+					  lat: 45.87551,  
+					  lon:  -69.12236,
+					  month: 'October',
+					  day: '12',
+					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
+					},
+					{
 					  ordinal: 80,
 					  shortName: 'chee-inlet',
-					  zoomLevel: 11,
+					  zoomLevel: 10,
 					  title: "Cheesuncook Inlet",
 					  lat: 46.052, 
 					  lon:  -69.34847,
@@ -112,7 +134,7 @@ var mapApp = new Vue({
 					{
 					  ordinal: 82,
 					  shortName: 'umba-pond',
-					  zoomLevel: 11,
+					  zoomLevel: 10,
 					  title: "Umbazookskus Pond",
 					  lat: 46.14653, 
 					  lon:  -69.3497,
