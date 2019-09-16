@@ -25,6 +25,8 @@ var mapApp = new Vue({
 		roads: null,
 		whichLayer: "greenleaf",
 		roadsShowing: false,
+		treatIcon: null,
+		selectedIcon: null,
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
 		entry: {
 					  ordinal: 0,
@@ -227,31 +229,63 @@ var mapApp = new Vue({
 			// this.roads.addTo(this.map);
 		}, // end init map
 		initLayers() {
+			// custom marker
+			this.treatIcon = L.icon({
+				iconUrl: 'js/images/treat-marker-icon-2x.png',
+				shadowUrl: 'js/images/marker-shadow.png',
+
+				iconSize:     [33, 54], // size of the icon
+				shadowSize:   [33, 54], // size of the shadow
+				iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				shadowAnchor: [4, 62],  // the same for the shadow
+				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+			this.selectedIcon = L.icon({
+				iconUrl: 'js/images/hilite-treat-marker-icon-2x.png',
+				shadowUrl: 'js/images/marker-shadow.png',
+
+				iconSize:     [33, 54], // size of the icon
+				shadowSize:   [33, 54], // size of the shadow
+				iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				shadowAnchor: [4, 62],  // the same for the shadow
+				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+			});
+
 			// // Old-school:
 			// var a2 = a.map(function(s){ return s.length });
 
 			// // ECMAscript 6 using arrow functions
 			// var a3 = a.map( s => s.length );
 
+			// Add link to attribute the source for this
 			// Need to understand => and "this" better
 			this.layers[0].features.forEach((feature, index) => {
 			// this.layers[0].features.forEach(function(feature) {
 				// console.log(" - lat: " + feature.lat); // feature.coords
-				feature.hamObject = L.marker([feature.lat, feature.lon])
+				feature.markerObject = L.marker([feature.lat, feature.lon],
+					{icon: this.treatIcon} )
 					.on("click", function(e) { 
 					 	// console.log(" - marker name: " + feature.name);
+					 	// mapApp.clearHighlights();
+					 	feature.markerObject.setIcon(mapApp.selectedIcon);
 					 	// mapApp.setEntry(feature.id, 10);
 					 	mapApp.setEntry(index);
 				});
 			});
 		},
+		// clearHighlights(){
+		// 	this.layers[0].features.forEach((feature) => {
+		// 		feature.markerObject.setIcon(this.treatIcon);
+		// 	});
+
+		// },
 		addLayer() {
 			// Don't know why I have to add the features later, but it works.
 			// this.layers[0].features.forEach(function(feature) {
 			// Above doesn't work -- must be related to the "this" diff treatment
 			this.layers[0].features.forEach((feature) => {
 				// console.log(" -- fadd lon: " + feature.lon);
-				feature.hamObject.addTo(this.map);
+				feature.markerObject.addTo(this.map);
 			});
 		},
 		incrementEntry: function(nextOrPrev) {
