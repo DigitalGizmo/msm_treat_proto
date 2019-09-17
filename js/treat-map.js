@@ -27,6 +27,8 @@ var mapApp = new Vue({
 		roadsShowing: false,
 		treatIcon: null,
 		selectedIcon: null,
+		markerList: [null], // indexed array for markers
+		siteMarkers: null, // layer group
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
 		entry: {
 					  ordinal: 0,
@@ -165,7 +167,7 @@ var mapApp = new Vue({
 	mounted() { 
 		this.initMap();
 		this.initLayers();
-		this.addLayer();
+		// this.addLayer();
 		this.initContent();
 	},
 
@@ -233,20 +235,18 @@ var mapApp = new Vue({
 			this.treatIcon = L.icon({
 				iconUrl: 'js/images/treat-marker-icon-2x.png',
 				shadowUrl: 'js/images/marker-shadow.png',
-
 				iconSize:     [33, 54], // size of the icon
 				shadowSize:   [33, 54], // size of the shadow
-				iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				iconAnchor:   [15, 54], // point of the icon which will correspond to marker's location
 				shadowAnchor: [4, 62],  // the same for the shadow
 				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 			});
 			this.selectedIcon = L.icon({
 				iconUrl: 'js/images/hilite-treat-marker-icon-2x.png',
 				shadowUrl: 'js/images/marker-shadow.png',
-
 				iconSize:     [33, 54], // size of the icon
 				shadowSize:   [33, 54], // size of the shadow
-				iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+				iconAnchor:   [15, 54], // point of the icon which will correspond to marker's location
 				shadowAnchor: [4, 62],  // the same for the shadow
 				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 			});
@@ -257,36 +257,50 @@ var mapApp = new Vue({
 			// // ECMAscript 6 using arrow functions
 			// var a3 = a.map( s => s.length );
 
+			// Store markers in array so they can be access by index
+			this.markerList = [];
 			// Add link to attribute the source for this
 			// Need to understand => and "this" better
 			this.layers[0].features.forEach((feature, index) => {
 			// this.layers[0].features.forEach(function(feature) {
 				// console.log(" - lat: " + feature.lat); // feature.coords
-				feature.markerObject = L.marker([feature.lat, feature.lon],
-					{icon: this.treatIcon} )
+				this.markerList.push(L.marker([feature.lat, feature.lon], {icon: this.treatIcon})
 					.on("click", function(e) { 
 					 	// console.log(" - marker name: " + feature.name);
 					 	// mapApp.clearHighlights();
-					 	feature.markerObject.setIcon(mapApp.selectedIcon);
+
+					 	// feature.markerObject.setIcon(mapApp.selectedIcon);
+
+
 					 	// mapApp.setEntry(feature.id, 10);
 					 	mapApp.setEntry(index);
+					}) 	// end pm click
+				); // end push
+
+				this.markerList[index].addTo(this.map);
+
+
+			}); // end forEach
+
+			// this.siteMarkers = L.layerGroup(this.markerList);
+
+		}, // end initLayers
+		clearHighlights(){
+			// this.layers[0].features.forEach((feature) => {
+			// 	feature.markerObject.setIcon(this.treatIcon);
+			// });
+			this.markerList.forEach((item, index) => {
+				// console.log(" -- fadd lon: " + feature.lon);
+				item.setIcon(this.treatIcon);
+				// Don't know why, but we seem to need to reinstate the pointer as
+				// mouseover behaviour. (Otherwise reverts to grab cursor)
+				item.on("mouseover", function(e) {
+				    document.getElementById('mapdiv').style.cursor = "pointer";
+				}).on("mouseout", function(e) {
+				    document.getElementById('mapdiv').style.cursor = "grab";
 				});
 			});
-		},
-		// clearHighlights(){
-		// 	this.layers[0].features.forEach((feature) => {
-		// 		feature.markerObject.setIcon(this.treatIcon);
-		// 	});
 
-		// },
-		addLayer() {
-			// Don't know why I have to add the features later, but it works.
-			// this.layers[0].features.forEach(function(feature) {
-			// Above doesn't work -- must be related to the "this" diff treatment
-			this.layers[0].features.forEach((feature) => {
-				// console.log(" -- fadd lon: " + feature.lon);
-				feature.markerObject.addTo(this.map);
-			});
 		},
 		incrementEntry: function(nextOrPrev) {
 			if(nextOrPrev == 'next') {
@@ -304,6 +318,13 @@ var mapApp = new Vue({
 			// this.entry = siteListJson[this.currIndex];
 			this.entry = this.layers[0].features[this.currIndex];
 			// console.log(" - this.entry.name: " + this.entry.name);
+
+			this.clearHighlights();
+
+
+			// Highlight the marker (here instead of as a function of the marker itself)
+			this.markerList[newEntIndex].setIcon(mapApp.selectedIcon);
+
 			// Set the new map zoom location
 			// Had big problems here with "this"-- scope issues "myApp" works
 			mapApp.map.setView([
