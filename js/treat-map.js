@@ -235,8 +235,8 @@ var mapApp = new Vue({
 			this.treatIcon = L.icon({
 				iconUrl: 'js/images/treat-marker-icon-2x.png',
 				shadowUrl: 'js/images/marker-shadow.png',
-				iconSize:     [33, 54], // size of the icon
-				shadowSize:   [33, 54], // size of the shadow
+				iconSize:     [25, 41], // size of the icon
+				shadowSize:   [40, 54], // size of the shadow
 				iconAnchor:   [15, 54], // point of the icon which will correspond to marker's location
 				shadowAnchor: [4, 62],  // the same for the shadow
 				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -244,8 +244,8 @@ var mapApp = new Vue({
 			this.selectedIcon = L.icon({
 				iconUrl: 'js/images/hilite-treat-marker-icon-2x.png',
 				shadowUrl: 'js/images/marker-shadow.png',
-				iconSize:     [33, 54], // size of the icon
-				shadowSize:   [33, 54], // size of the shadow
+				iconSize:     [25, 41], // size of the icon
+				shadowSize:   [40, 54], // size of the shadow
 				iconAnchor:   [15, 54], // point of the icon which will correspond to marker's location
 				shadowAnchor: [4, 62],  // the same for the shadow
 				popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -292,13 +292,17 @@ var mapApp = new Vue({
 			this.markerList.forEach((item, index) => {
 				// console.log(" -- fadd lon: " + feature.lon);
 				item.setIcon(this.treatIcon);
-				// Don't know why, but we seem to need to reinstate the pointer as
-				// mouseover behaviour. (Otherwise reverts to grab cursor)
-				item.on("mouseover", function(e) {
-				    document.getElementById('mapdiv').style.cursor = "pointer";
-				}).on("mouseout", function(e) {
-				    document.getElementById('mapdiv').style.cursor = "grab";
-				});
+
+				// // use css instead??
+				// // Don't know why, but we seem to need to reinstate the pointer as
+				// // mouseover behaviour. (Otherwise reverts to grab cursor)
+				// item.on("mouseover", function(e) {
+				//     document.getElementById('mapdiv').style.cursor = "pointer";
+				// }).on("mouseout", function(e) {
+				//     document.getElementById('mapdiv').style.cursor = "grab";
+				// });
+
+
 			});
 
 		},
