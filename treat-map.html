@@ -85,9 +85,13 @@
 			<a href = "#" v-on:click.prevent = "incrementEntry('prev')">Prev</a> | 
 		</template>
 		<a href = "#" v-on:click = "incrementEntry('next')">Next</a>
+
 		</p>
 
-		<journal-item v-bind:anentry="entry"   ></journal-item>
+		<journal-item 
+		v-bind:anentry="entry"   
+		v-bind:imgname="imgname"   
+		></journal-item>
 
 
 

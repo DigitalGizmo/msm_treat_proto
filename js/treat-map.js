@@ -2,12 +2,21 @@
 
 Vue.component('journal-item', {
 	// Prop variable name is touchy -- needs to be neither camelCase nor kebob-case
-	props: ['anentry'],
-
+	props: ['anentry', 'imgname'],
+	methods: {
+		// Could alternatively use: this.$emit('click') 
+		// per https://stackoverflow.com/questions/46208610/call-parent-method-with-component
+		cFlipDrawing: function() {
+			// console.log(" -- flip in component");
+			this.$parent.flipDrawing();
+		},
+	},
 	template: `
 		<div class="map-scroll">
 			<p><strong>{{ anentry.title }} </strong> </p>
-			<img v-bind:src="'images/menupics/' + anentry.shortName + '.jpg'" />
+			
+			<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
+			<span v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">Flip drawing</a></p></span>
 			<span v-html="anentry.jrnText"></span>
 		</div>
 	`
@@ -29,6 +38,7 @@ var mapApp = new Vue({
 		selectedIcon: null,
 		markerList: [null], // indexed array for markers
 		siteMarkers: null, // layer group
+		imgname: null,
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
 		entry: {
 					  ordinal: 0,
@@ -39,6 +49,7 @@ var mapApp = new Vue({
 					  lon: -69,
 					  month: 'September',
 					  day: '',
+					  isFlippable: false,
 					  jrnText: "<p>[vue-data init - placeholder]</p>",
 					},
 		layers: [
@@ -56,6 +67,7 @@ var mapApp = new Vue({
 					  lon: -68.767824,
 					  month: 'September',
 					  day: '16',
+					  isFlippable: false,
 					  jrnText: "<p>Intro do the project.</p>"
 					},
 					{
@@ -67,6 +79,7 @@ var mapApp = new Vue({
 					  lon: -68.767824,
 					  month: 'September',
 					  day: '',
+					  isFlippable: false,
 					  jrnText: "<p>Bangor, 16th Sept. 1820</p><p>This day received Instructions from His Excellency William King, dated the 11th instant, directing me to preceed up the Penobscot...</p>"
 					},
 					{
@@ -78,6 +91,7 @@ var mapApp = new Vue({
 					  lon:  -68.659326,
 					  month: 'September',
 					  day: '',
+					  isFlippable: true,
 					  jrnText: "<p>[Don't see a note on whether this is the same day, Sunday, as the first entry.]</p>",
 					},
 					{
@@ -89,6 +103,7 @@ var mapApp = new Vue({
 					  lon:  -68.96821,
 					  month: 'October',
 					  day: '9',
+					  isFlippable: false,
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum.</p>",
 					},
 					{
@@ -100,6 +115,7 @@ var mapApp = new Vue({
 					  lon:  -69.03056,
 					  month: 'October',
 					  day: '10',
+					  isFlippable: false,
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
 					},
 					{
@@ -111,6 +127,7 @@ var mapApp = new Vue({
 					  lon:  -69.03522,
 					  month: 'October',
 					  day: '11',
+					  isFlippable: false,
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis </p>",
 					},
 					{
@@ -122,6 +139,7 @@ var mapApp = new Vue({
 					  lon:  -69.12236,
 					  month: 'October',
 					  day: '12',
+					  isFlippable: false,
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
 					},
 					{
@@ -133,6 +151,7 @@ var mapApp = new Vue({
 					  lon:  -69.34847,
 					  month: 'October',
 					  day: '14',
+					  isFlippable: false,
 					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
 					},
 					{
@@ -144,6 +163,7 @@ var mapApp = new Vue({
 					  lon:  -69.3497,
 					  month: 'October',
 					  day: '17',
+					  isFlippable: false,
 					  jrnText: "<p>? </p>",
 					},
 
@@ -157,6 +177,7 @@ var mapApp = new Vue({
 					  lon:  -68.9256,
 					  month: 'October',
 					  day: '',
+					  isFlippable: false,
 					  jrnText: "<p>Amherst College was founded in 1821 and is the third oldest college in Massachusetts. Edward Hitchcock was its third president and donated his huge collection of fossil tracks to the college where it can be seen today.</p>",
 					},
 				], // end features
@@ -323,6 +344,10 @@ var mapApp = new Vue({
 			this.entry = this.layers[0].features[this.currIndex];
 			// console.log(" - this.entry.name: " + this.entry.name);
 
+			// Update imageShortName independently -- used for flipImage
+			this.imgname = this.entry.shortName;
+			console.log(" -- imgname: " + this.imgname);
+
 			this.clearHighlights();
 
 
@@ -339,6 +364,8 @@ var mapApp = new Vue({
 		initContent: function() {
 			// this.entry = siteListJson[0]
 			this.entry = this.layers[0].features[0];
+			// image set independently for flipImage
+			this.imgname = this.entry.shortName;
 			// this.setEntry(0, 9)
 		},
 		layerChanged: function() {
@@ -362,6 +389,18 @@ var mapApp = new Vue({
 			// } else {
 			// 	this.roads.removeFrom(this.map);
 			// }
+		},
+		flipDrawing: function() {
+			// console.log(" -- flippable name ending: " + this.imgname.substring(this.imgname.length - 5, this.imgname.length));
+			if (this.imgname.substring(this.imgname.length - 5, this.imgname.length) == "_down") {
+				// ends with _down
+				// console.log(" -- trimmed name: " + this.imgname.substring(0, this.imgname.length - 5));
+				this.imgname = this.imgname.substring(0, this.imgname.length - 5);
+			} else {
+				// doesn't end with _down
+				this.imgname = this.imgname + "_down";
+			}
+			// console.log(" -- flip new name: " + this.imgname);
 		},
 
 	}, // end methods
