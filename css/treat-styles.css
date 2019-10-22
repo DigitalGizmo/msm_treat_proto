@@ -728,15 +728,15 @@ dl.slim-curatorial dd::after {
 @media screen and (min-width: 55em) {
   .map-wrapper {
     float: left;
-    width: 75%;
+    width: 65%;
   }
 }
 
 @media screen and (min-width: 55em) {
   .map-locations-panel {
     display: block;
-    margin-left: 75%;
-    width: 25%;
+    margin-left: 65%;
+    width: 35%;
   }
 }
 
@@ -744,7 +744,7 @@ dl.slim-curatorial dd::after {
   .map-control-panel {
     display: block;
     float: left;
-    width: 30%;
+    width: 3%;
   }
 }
 
@@ -827,7 +827,7 @@ dl.slim-curatorial dd::after {
 .map-scroll {
   background-color: #5d5853;
   border: 1px solid #b3aa98;
-  height: 20vh;
+  height: 80vh;
   margin-bottom: 1.6em;
   overflow: scroll;
   padding: 0.8em;
