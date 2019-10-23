@@ -68,7 +68,7 @@ var mapApp = new Vue({
 					  month: 'September',
 					  day: '16',
 					  isFlippable: false,
-					  jrnText: "<p>Intro do the project.</p>"
+					  jrnText: "<p>Introduction to the project.</p>"
 					},
 					{
 					  ordinal: 1,
