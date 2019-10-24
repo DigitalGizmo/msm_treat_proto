@@ -1,40 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Treat Map</title>
-
-<link rel="stylesheet" href="css/leaflet.css" type="text/css"/>
-<link rel="stylesheet" href="css/treat-styles.css" type="text/css"/>
-
-<script src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="js/tangram.min.js"></script>
-
-<style type="text/css">
-	/*just a hack*/
-	input {
-	    float:left;
-	}
-	/* Needed to keep the pointer over markers -- otherwise reverts to grab on change*/
-	.leaflet-overlay-pane path,
-	.leaflet-marker-icon {
-	  cursor: pointer;
-	}
-</style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Treat Map</title>
 
 </head>
 
 <body>
-
+	
 	<div id="app" class="wrapper"> <!-- id app used by js only -->
+		
 		<div class="map-wrapper">
 
 			<section class="map-area">
 				<div id="mapdiv"> <!-- mapdiv used by js, is also in css -->
-					<!-- map goes here -->
+					<!-- map happens here -->
 				</div>
 			</section>
 
@@ -43,21 +25,23 @@
 		<section id="entry-panel" class="journal-info-panel"><!--Don, do we need #entry-panel? -->
 			<header>
 				<h3><a href="#">INTRO - Explore Joseph Treat's Journey</a></h3>
-				<h2>At the foot of Marshes Island</h2>
-				<date>28 September 1820</date>
+				<h2>At the foot of Marshes Island</h2><!--this is the dynamic journal entry title-->
+				<date>28 September 1820</date><!-- this is the journal entry date-->
 			</header>
-				<!-- <journal-nav v-bind:anentry="entry"></journal-nav> -->
 			
-			<div class="inset-panel">
+			<div class="journal-image">
+				<img src="map-detail-image.jpg">
+				<ul class="image-controls">
+					<li>flip map</li>
+					<li>view larger version</li>
+				</ul>
+			</div><!-- /journal-image -->
 
-				<journal-item 
-				v-bind:anentry="entry"   
-				v-bind:imgname="imgname"   
-				></journal-item>
-
-			</div><!-- /inset-panel -->
-
-<!-- the radio buttons for switching the map -->
+			<div class="journal-entry">
+				<p>dynamic journal entry goes here</p>
+			</div>
+			
+<!-- the radio buttons for switching the map - not sure where these should go but probably not within the entry panel section. -->
 				<p>
 
 				<div class="first-group">
@@ -99,14 +83,11 @@
 				</p>
 <!-- /end radio buttons -->
 
-
 		</section> <!-- /entry-panel -->
 	</div> <!-- /app -->
 
 <script type="text/javascript" src="js/leaflet.js"></script>
-<!-- <script type="text/javascript" src="js/site-list-json.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-
 <script src="js/treat.js" type="text/javascript"></script>
 
 </body>

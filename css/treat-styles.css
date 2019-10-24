@@ -439,13 +439,13 @@ h6 {
   line-height: 1.2;
   margin: 0 0 0.8em 0;
 }
-
+/*
 .heading {
   font-variant: small-caps;
   letter-spacing: .05em;
 }
 
-/*.caption, .image-panel--caption {
+.caption, .image-panel--caption {
   font-family: "Lucida Grande", "Tahoma", "Verdana", "Arial", sans-serif;
   font-size: 0.8em;
   padding: 0.8em;
@@ -492,70 +492,107 @@ blockquote {
   font-style: italic;
 }
 
-.map-empty {
-  background-color: #65605a;
+/*.map-empty {
   overflow: visible;
-}
-@media screen and (min-width: 55em) {
+}*/
+
+/*@media screen and (min-width: 55em) {
   .map-empty {
     overflow: auto;
   }
+}*/
+.wrapper {
+  display: grid;
+  grid-template-rows: 100vh;
+  grid-template-columns: 50% 50%;
+  grid-gap: 0px;
+  height: 100vh;
+  margin: 0;
 }
 
 .map-wrapper {
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
+
+/*.map-wrapper {
   float: none;
   width: 100%;
 }
 @media screen and (min-width: 55em) {
   .map-wrapper {
-    float: left;
-    width: 65%;
+    float: right;
+    width: 50%;
   }
-}
+}*/
 
-@media screen and (min-width: 55em) {
-  .map-locations-panel {
-    display: block;
-    margin-left: 65%;
-    width: 35%;
-  }
-}
+/* @media screen and (min-width: 55em) {
+  .journal-info-panel {
+   display: block;
+    margin-right: 50%;
+    width: 50%;
 
-@media screen and (min-width: 55em) {
+    }
+}*/
+
+/*@media screen and (min-width: 55em) {
   .map-control-panel {
     display: block;
     float: left;
     width: 3%;
   }
-}
+}*/
 
-.map-control-panel, .map-locations-panel {
+.journal-info-panel {
   color: #fff4e4;
   padding: 1.6em;
+  /*height: 100vh;*/
+  grid-row: 1;
+  grid-column: 1;
+  background-color: rgba(19, 6, 6, 0.6);
+  position: relative;
+  z-index: 15;
 }
-.map-control-panel h2, .map-locations-panel h2 {
+
+.journal-info-panel h2 {
   font-size: 1.25em;
 }
-.map-control-panel a:link, .map-control-panel a:visited, .map-locations-panel a:link, .map-locations-panel a:visited {
+.journal-info-panel a:link, .journal-info-panel a:visited {
   color: rgba(255, 244, 228, 0.6);
 }
-.map-control-panel a:hover, .map-locations-panel a:hover {
+.journal-info-panel a:hover {
   color: #fff4e4;
   text-decoration: underline;
+}
+
+.inset-panel {
+  padding: 1.6em;
+  background-color: rgba(19, 6, 6, 0.9);
 }
 
 .map-area {
   display: block;
   height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 #mapdiv {
   height: 100%;
-  /*height: 600px;*/
-  z-index: 85;
+  /*height: 600px;
+  z-index: 85;*/
 }
 
-.map-layers {
+.map-scroll {
+  background-color: #5d5853;
+  border: 1px solid #b3aa98;
+  height: 70%;
+  margin-bottom: 1.6em;
+  overflow: scroll;
+  padding: 0.8em;
+}
+
+/*.map-layers {
   margin-bottom: 0;
 }
 .map-layers li {
@@ -578,7 +615,7 @@ blockquote {
   font-family: "Lucida Grande", "Tahoma", "Verdana", "Arial", sans-serif;
   font-size: 0.8em;
 }
-
+*/
 /*.glacier-list {
   border-top: 1px solid #b3aa98;
 }
@@ -590,12 +627,12 @@ blockquote {
   font-variant: small-caps;
   letter-spacing: .05em;
 }
-*/
-.map-locations {
+
+.journal-info {
   margin-bottom: 1.6em;
 }
-
-.map-sites li, .map-deeper li {
+*/
+/*.map-sites li, .map-deeper li {
   border-bottom: 1px solid #b3aa98;
   font-size: 0.8em;
   line-height: 1.2;
@@ -603,23 +640,15 @@ blockquote {
 }
 .map-sites li a:link, .map-sites li a:visited, .map-deeper li a:link, .map-deeper li a:visited {
   color: #fff4e4;
-}
+}*/
 
-.map-scroll {
-  background-color: #5d5853;
-  border: 1px solid #b3aa98;
-  height: 80vh;
-  margin-bottom: 1.6em;
-  overflow: scroll;
-  padding: 0.8em;
-}
 
-.map-image {
+/*.map-image {
   float: left;
   margin-right: 1.6em;
   border: double #b3aa98;
 }
-
+*//*
 .map-left-col {
   float: left;
   display: block;
@@ -693,14 +722,14 @@ blockquote {
   img.how-to-map:last-child {
     margin-right: 0;
   }
-}
+}*/
 /*
 .related-list li {
   font-size: 0.9em;
   margin-bottom: 0.8em;
 }*/
 
-.map-about img {
+/*.map-about img {
   float: left;
   margin-right: 1.6em;
 }
@@ -733,8 +762,8 @@ blockquote {
   .content-wrapper--intro {
     overflow: auto;
   }
-}
-
+}*/
+/*
 .image-panel {
   width: 100%;
   height: auto;
@@ -784,8 +813,8 @@ blockquote {
 .text-panel a:hover {
   color: #fff4e4;
   text-decoration: underline;
-}
-
+}*/
+/*
 .control-panel {
   color: #b12b00;
   padding: 1.6em;
@@ -821,7 +850,7 @@ blockquote {
   font-size: 0.9em;
   font-weight: normal;
 }
-
+*/
 
 
 /*.dig-deeper {
