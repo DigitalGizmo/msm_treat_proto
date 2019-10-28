@@ -41,63 +41,77 @@
 		</div><!--/map-wrapper-->
 
 		<section id="entry-panel" class="journal-info-panel"><!--Don, do we need #entry-panel? -->
-			<header>
-				<h3><a href="#">INTRO - Explore Joseph Treat's Journey</a></h3>
-				<h2>At the foot of Marshes Island</h2>
-				<date>28 September 1820</date>
-			</header>
-				<!-- <journal-nav v-bind:anentry="entry"></journal-nav> -->
+
+
+			<!-- markup in treat.js -->
+			<header-block 
+				v-bind:anentry="entry">
+			</header-block>
 			
-			<div class="inset-panel">
-
-				<journal-item 
-				v-bind:anentry="entry"   
-				v-bind:imgname="imgname"   
-				></journal-item>
-
-			</div><!-- /inset-panel -->
-
-<!-- the radio buttons for switching the map -->
+			<!-- <journal-nav v-bind:anentry="entry"></journal-nav> -->
+			<nav class="entry-nav">
 				<p>
+					<!-- <a href="#previous-entry">previous</a>  -->
+					<template v-if="true" style="display: block;"> 
+						<a href = "#" v-on:click.prevent = "incrementEntry('prev')">previous</a> | 
+					</template>
+					x/yy 
+					<!-- <a href="#next-entry">next</a> -->
+					<a href = "#" v-on:click = "incrementEntry('next')">next</a>
+				</p>
+			</nav>
+			
+			<!-- markup in treat.js -->
+			<journal-item 
+			v-bind:anentry="entry"   
+			v-bind:imgname="imgname"   
+			></journal-item>
 
-				<div class="first-group">
-					<input 
-						type="radio" 
-						id="one" 
-						value="greenleaf" 
-						v-model="whichLayer"
-						v-on:change="layerChanged()"
-					/>
-					<label for="one">Greenleaf/Treat</label>				
-				</div>
-				<div>
-					<input 
-						type="radio" 
-						id="two" 
-						value="terrain" 
-						v-model="whichLayer"
-						v-on:change="layerChanged()"
-					/>			
-					<label for="two">Terrain</label>				
-				</div>
 
-				<label for="id_2">
-					<input 
-						id="id_2" 
-						name="overlay" 
-						type="checkbox" 
-						v-model="roadsShowing"
-						v-on:change="roadsChanged()"
-					/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
-				</label>
+			<nav class="entry-nav">
+				<p>
+					<!-- <a href="#previous-entry">previous</a>  -->
+					<template v-if="true" style="display: block;"> 
+						<a href = "#" v-on:click.prevent = "incrementEntry('prev')">previous</a> | 
+					</template>
+					x/yy 
+					<!-- <a href="#next-entry">next</a> -->
+					<a href = "#" v-on:click = "incrementEntry('next')">next</a>
 
-				<template v-if="true" style="display: block;"> 
-					<a href = "#" v-on:click.prevent = "incrementEntry('prev')">Prev</a> | 
-				</template>
-				<a href = "#" v-on:click = "incrementEntry('next')">Next</a>
+
+					<div class="first-group">
+						<input 
+							type="radio" 
+							id="one" 
+							value="greenleaf" 
+							v-model="whichLayer"
+							v-on:change="layerChanged()"
+						/>
+						<label for="one">Greenleaf/Treat</label>				
+					</div>
+					<div>
+						<input 
+							type="radio" 
+							id="two" 
+							value="terrain" 
+							v-model="whichLayer"
+							v-on:change="layerChanged()"
+						/>			
+						<label for="two">Terrain</label>				
+					</div>
+
+					<label for="id_2">
+						<input 
+							id="id_2" 
+							name="overlay" 
+							type="checkbox" 
+							v-model="roadsShowing"
+							v-on:change="roadsChanged()"
+						/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
+					</label>
 
 				</p>
-<!-- /end radio buttons -->
+			</nav>
 
 
 		</section> <!-- /entry-panel -->

@@ -1,5 +1,22 @@
 // All in Vue version of treat map
 
+Vue.component('header-block', {
+	props: ['anentry'],
+	methods: {
+		cToIntro: function() {
+			// console.log(" -- flip in component");
+			this.$parent.setEntry(0);
+		},
+	},
+	template: `
+		<header>
+			<h3><a href="#" v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a></h3>
+			<h2>{{ anentry.title }}</h2>
+			<date>{{ anentry.day }} {{ anentry.month }} 1820</date>
+		</header>
+	`
+})
+
 Vue.component('journal-item', {
 	// Prop variable name is touchy -- needs to be neither camelCase nor kebob-case
 	props: ['anentry', 'imgname'],
@@ -12,13 +29,18 @@ Vue.component('journal-item', {
 		},
 	},
 	template: `
-		<div class="map-scroll">
-			<p><strong>{{ anentry.title }} </strong> </p>
-			
+		<div class="journal-image">
 			<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
-			<span v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">Flip drawing</a></p></span>
+
+			<ul class="image-controls">
+				<li v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">flip drawing</a></p</li>
+				<li><a href="#popup-window">view larger version</a></li>
+			</ul>
+		</div><!-- /journal-image -->
+
+		<div class="journal-text">
 			<span v-html="anentry.jrnText"></span>
-		</div>
+		</div><!-- /journal-text -->
 	`
 })
 
