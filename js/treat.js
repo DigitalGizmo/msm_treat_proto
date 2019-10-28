@@ -29,18 +29,20 @@ Vue.component('journal-item', {
 		},
 	},
 	template: `
-		<div class="journal-image">
-			<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
+		<span>
+			<div class="journal-image">
+				<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
 
-			<ul class="image-controls">
-				<li v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">flip drawing</a></p</li>
-				<li><a href="#popup-window">view larger version</a></li>
-			</ul>
-		</div><!-- /journal-image -->
+				<ul class="image-controls">
+					<li v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">flip drawing</a></p</li>
+					<li><a href="#popup-window">view larger version</a></li>
+				</ul>
+			</div><!-- /journal-image -->
 
-		<div class="journal-text">
-			<span v-html="anentry.jrnText"></span>
-		</div><!-- /journal-text -->
+			<div class="journal-text">
+				<span v-html="anentry.jrnText"></span>
+			</div><!-- /journal-text -->
+		</span>
 	`
 })
 
