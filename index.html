@@ -28,7 +28,36 @@
 				</div>
 			</section>
 
-		</div><!--/map-wrapper-->
+			<div class="map-layers-controls">
+				<input 
+					type="radio" 
+					id="one" 
+					value="greenleaf" 
+					v-model="whichLayer"
+					v-on:change="layerChanged()"
+				/>
+				<label for="one">Greenleaf/Treat</label>				
+				<input 
+					type="radio" 
+					id="two" 
+					value="terrain" 
+					v-model="whichLayer"
+					v-on:change="layerChanged()"
+				/>			
+				<label for="two">Terrain</label>		
+
+				<label for="id_2">
+					<input 
+						id="id_2" 
+						name="overlay" 
+						type="checkbox" 
+						v-model="roadsShowing"
+						v-on:change="roadsChanged()"
+					/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
+				</label>
+			</div><!-- /map-layers-control -->
+
+		</div><!-- /map-wrapper-->
 
 
 		<section class="journal-info-panel">
@@ -67,37 +96,7 @@
 					<!-- <a href="#next-entry">next</a> -->
 					<a href = "#" v-on:click = "incrementEntry('next')">next</a>
 				</p>
-			</nav>
-
-
-			<div class="map-layers-controls">
-				<input 
-					type="radio" 
-					id="one" 
-					value="greenleaf" 
-					v-model="whichLayer"
-					v-on:change="layerChanged()"
-				/>
-				<label for="one">Greenleaf/Treat</label>				
-				<input 
-					type="radio" 
-					id="two" 
-					value="terrain" 
-					v-model="whichLayer"
-					v-on:change="layerChanged()"
-				/>			
-				<label for="two">Terrain</label>		
-
-				<label for="id_2">
-					<input 
-						id="id_2" 
-						name="overlay" 
-						type="checkbox" 
-						v-model="roadsShowing"
-						v-on:change="roadsChanged()"
-					/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
-				</label>
-			</div>
+			</nav><!-- /entry-nav -->
 			
 		</section> <!-- /entry-panel -->
 
