@@ -12,7 +12,7 @@ Vue.component('header-block', {
 		<header>
 			<h3><a href="#" v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a></h3>
 			<h2>{{ anentry.title }}</h2>
-			<date>{{ anentry.day }} {{ anentry.month }} 1820</date>
+			<p>{{ anentry.day }} {{ anentry.month }} 1820</p> <!-- Don changed date to p -->
 		</header>
 	`
 })
@@ -219,9 +219,32 @@ var mapApp = new Vue({
 	methods: { 
 		initMap() {
 
-			this.map = L.map('mapdiv').setView([this.layers[0].features[0].lat, 
-				this.layers[0].features[0].lon], 8);
-			// this.map = L.map('mapdiv').setView([42.0, -72.6], 9);
+			// Create function for marker "center" offset.
+			L.Map.prototype.setViewOffset = function (latlng, offset, targetZoom) {
+			    var targetPoint = this.project(latlng, targetZoom).subtract(offset),
+			    targetLatLng = this.unproject(targetPoint, targetZoom);
+			    return this.setView(targetLatLng, targetZoom);
+			}			
+
+
+			// Define map
+			let latLng = L.latLng([this.layers[0].features[0].lat, 
+				this.layers[0].features[0].lon]);
+
+			// this.map = L.map('mapdiv').setView([this.layers[0].features[0].lat, 
+			// 	this.layers[0].features[0].lon], 8);
+
+			this.map = L.map('mapdiv').setView(latLng, 8);
+
+			this.map.zoomControl.setPosition('bottomright');
+
+			let offset = this.map.getSize().x*0.23;
+			// console.log(" -- initial offset: " + offset);
+			this.map.panBy(new L.Point(-offset, 0), {animate: false});
+			// Prototype function doesn't work here, null
+			// this.map = L.map('mapdiv').setViewOffset(latLng, [offset,0], 8);
+
+
 			// // Base Layer
 			// this.baseLayer = L.tileLayer(
 			//   'https://api.mapbox.com/styles/v1/mapbox/donaldo/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIzNmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
@@ -265,8 +288,7 @@ var mapApp = new Vue({
 				// bounds: mybounds,
 				minZoom: 7,
 				maxZoom: 12
-		    }), 
-
+		    });
 
 			// this.baseLayer.addTo(this.map);
 
@@ -380,10 +402,16 @@ var mapApp = new Vue({
 
 			// Set the new map zoom location
 			// Had big problems here with "this"-- scope issues "myApp" works
-			mapApp.map.setView([
-				this.entry.lat, 
-				this.entry.lon
-				], this.entry.zoomLevel) 
+			// Need to offset "center"
+			let offset = mapApp.map.getSize().x*0.23;
+			console.log(" -- offset: " + offset);
+
+			let latLng = L.latLng([this.entry.lat, 
+				this.entry.lon]);
+
+			// mapApp.map.setView(latLng, this.entry.zoomLevel) 
+			mapApp.map.setViewOffset(latLng,[offset,0],this.entry.zoomLevel)
+
 		},
 		initContent: function() {
 			// this.entry = siteListJson[0]
