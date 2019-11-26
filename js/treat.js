@@ -1,4 +1,6 @@
 // All in Vue version of treat map
+// Needed for $http.get
+Vue.use(VueResource)
 
 Vue.component('header-block', {
 	props: ['anentry'],
@@ -10,7 +12,9 @@ Vue.component('header-block', {
 	},
 	template: `
 		<header>
-			<h3><a href="#" v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a></h3>
+			<h3><a href="#" 
+				v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a>
+			</h3>
 			<h2>{{ anentry.title }}</h2>
 			<p>{{ anentry.day }} {{ anentry.month }} 1820</p> <!-- Don changed date to p -->
 		</header>
@@ -34,13 +38,19 @@ Vue.component('journal-item', {
 				<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
 
 				<ul class="image-controls">
-					<li v-if="anentry.isFlippable"><p><a href = "#" v-on:click.prevent = "cFlipDrawing()">flip drawing</a></p</li>
+					<li v-if="anentry.is_flippable">
+						<p>
+							<a href = "#" 
+								v-on:click.prevent = "cFlipDrawing()">flip drawing
+							</a>
+						</p>
+					</li>
 					<li><a href="#popup-window">view larger version</a></li>
 				</ul>
 			</div><!-- /journal-image -->
 
 			<div class="journal-text">
-				<span v-html="anentry.jrnText"></span>
+				<span v-html="anentry.entry_text"></span>
 			</div><!-- /journal-text -->
 		</span>
 	`
@@ -63,160 +73,61 @@ var mapApp = new Vue({
 		markerList: [null], // indexed array for markers
 		siteMarkers: null, // layer group
 		imgname: null,
+		// JSON to be
+
+		// entries: [{"title":"Joseph Init","slug":"intro","entry_date":"16 September, 1820","lat":45.0,"lon":-68.767824,"zoom_level":8,"is_flippable":false,"entry_text":"<p>Introduction to the project.</p>"}],
+
+		entries: [],
+
+		// entry: null,
+		entry: { slug: 'placeholder'},
+
 		// need non-null intialization. Will be overwritten by 1st real data via initContent
-		entry: {
-					  ordinal: 0,
-					  shortName: 'amherst-college',
-					  zoomLevel: 10,
-					  title: "Amherst College",
-					  lat: 44,
-					  lon: -69,
-					  month: 'September',
-					  day: '',
-					  isFlippable: false,
-					  jrnText: "<p>[vue-data init - placeholder]</p>",
-					},
-		layers: [
-			{
-				id: 0,
-				name: 'Primary Entries',
-				active: false,
-				features: [
-					{
-					  ordinal: 0,
-					  shortName: 'intro',
-					  zoomLevel: 8,
-					  title: "Joseph Treat's Journal",
-					  lat: 45,
-					  lon: -68.767824,
-					  month: 'September',
-					  day: '16',
-					  isFlippable: false,
-					  jrnText: "<p>Introduction to the project.</p>"
-					},
-					{
-					  ordinal: 1,
-					  shortName: 'bangor',
-					  zoomLevel: 9,
-					  title: "Start - Bangor",
-					  lat: 44.7971185,
-					  lon: -68.767824,
-					  month: 'September',
-					  day: '',
-					  isFlippable: false,
-					  jrnText: "<p>Bangor, 16th Sept. 1820</p><p>This day received Instructions from His Excellency William King, dated the 11th instant, directing me to preceed up the Penobscot...</p>"
-					},
-					{
-					  ordinal: 2,
-					  shortName: 'day-two',
-					  zoomLevel: 10,
-					  title: "First stop",
-					  lat: 44.880163,
-					  lon:  -68.659326,
-					  month: 'September',
-					  day: '',
-					  isFlippable: true,
-					  jrnText: "<p>[Don't see a note on whether this is the same day, Sunday, as the first entry.]</p>",
-					},
-					{
-					  ordinal: 70,
-					  shortName: 'abol-falls',
-					  zoomLevel: 10,
-					  title: "Abolosokmasesick Falls",
-					  lat: 45.82655,
-					  lon:  -68.96821,
-					  month: 'October',
-					  day: '9',
-					  isFlippable: false,
-					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum.</p>",
-					},
-					{
-					  ordinal: 72,
-					  shortName: 'neso-falls',
-					  zoomLevel: 11,
-					  title: "Nesowadnehunk Falls",
-					  lat: 45.84633, 
-					  lon:  -69.03056,
-					  month: 'October',
-					  day: '10',
-					  isFlippable: false,
-					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
-					},
-					{
-					  ordinal: 74,
-					  shortName: 'neso-camp',
-					  zoomLevel: 11,
-					  title: "Remain in Camp",
-					  lat: 45.84615, 
-					  lon:  -69.03522,
-					  month: 'October',
-					  day: '11',
-					  isFlippable: false,
-					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis </p>",
-					},
-					{
-					  ordinal: 76,
-					  shortName: 'nolan-pond',
-					  zoomLevel: 10,
-					  title: "Nolangamick Pond",
-					  lat: 45.87551,  
-					  lon:  -69.12236,
-					  month: 'October',
-					  day: '12',
-					  isFlippable: false,
-					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
-					},
-					{
-					  ordinal: 80,
-					  shortName: 'chee-inlet',
-					  zoomLevel: 10,
-					  title: "Cheesuncook Inlet",
-					  lat: 46.052, 
-					  lon:  -69.34847,
-					  month: 'October',
-					  day: '14',
-					  isFlippable: false,
-					  jrnText: "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit, semper nascetur phasellus himenaeos quis commodo, fermentum nisl elementum nunc etiam diam. Penatibus feugiat potenti ad interdum curae sodales hendrerit sociis eros semper, nibh auctor fermentum senectus ultrices ligula class fringilla sociosqu nunc tellus, aliquet magnis mattis lacus cum pretium praesent curabitur facilisis. Donec justo porttitor lacinia arcu ligula venenatis posuere erat pretium mauris sollicitudin per blandit congue convallis, tincidunt odio mattis tempor sagittis fames molestie nostra praesent pellentesque pulvinar primis lectus.<p></p> Suspendisse eget tellus justo hac ante nisl massa nam maecenas, lectus mus duis mi nullam porttitor habitasse rutrum torquent praesent, ac venenatis sociosqu montes nibh ad quisque suscipit. Tortor hendrerit fringilla lobortis penatibus aliquam varius nibh tempor scelerisque ante, bibendum duis curae venenatis porta suscipit leo luctus vulputate velit enim, blandit netus justo at cubilia hac senectus dui facilisi. Gravida congue dapibus feugiat nam dictum mollis nostra cursus, metus augue tempus ad sollicitudin curabitur sociosqu, felis lobortis praesent aptent erat netus interdum. </p>",
-					},
-					{
-					  ordinal: 82,
-					  shortName: 'umba-pond',
-					  zoomLevel: 10,
-					  title: "Umbazookskus Pond",
-					  lat: 46.14653, 
-					  lon:  -69.3497,
-					  month: 'October',
-					  day: '17',
-					  isFlippable: false,
-					  jrnText: "<p>? </p>",
-					},
-
-
-					{
-					  ordinal: 100,
-					  shortName: 'amherst-college',
-					  zoomLevel: 10,
-					  title: "Mt. Katahdin",
-					  lat: 45.9005,
-					  lon:  -68.9256,
-					  month: 'October',
-					  day: '',
-					  isFlippable: false,
-					  jrnText: "<p>Amherst College was founded in 1821 and is the third oldest college in Massachusetts. Edward Hitchcock was its third president and donated his huge collection of fossil tracks to the college where it can be seen today.</p>",
-					},
-				], // end features
-			}, // end first layer
-		], // end layers
+		// entry: {
+		// 	  ordinal: 0,
+		// 	  slug: 'amherst-college',
+		// 	  zoomLevel: 10,
+		// 	  title: "Amherst College [pre-init]",
+		// 	  lat: 44,
+		// 	  lon: -69,
+		// 	  month: 'September',
+		// 	  day: '',
+		// 	  isFlippable: false,
+		// 	  entry_text: "<p>[vue-data init - placeholder]</p>",
+		// 	},
 	}, // end data
 
-	mounted() { 
-		this.initMap();
-		this.initLayers();
-		// this.addLayer();
-		this.initContent();
+	created: function () {
+		console.log('-- created')
+		this.fetchData();
 	},
 
+	// Using callback from $http instead of mounted for inits
+	// mounted() { },
+
 	methods: { 
+
+		fetchData: function () {
+			// console.log('-- got to fetchData - init entries' + this.entries[0].title);
+			// this.$http.get('http://127.0.0.1:8000/journal/entries/?format=json')
+			let vm = this;
+			this.$http.get('https://msm-treat-admin.digitalgizmo.com/journal/entries/?format=json')
+					.then(response => {
+						this.entries = response.data;
+						console.log(" -- finished getting data?");
+						vm.initAll();
+
+					})
+			console.log('-- after http get entries' ); // + this.entries[0].title
+		},
+		initAll() { 
+			console.log('-- in initAll')
+			this.initMap();
+			this.initLayers();
+			// this.addLayer();
+			this.initContent();
+		},
+
 		initMap() {
 
 			// Create function for marker "center" offset.
@@ -228,8 +139,10 @@ var mapApp = new Vue({
 
 
 			// Define map
-			let latLng = L.latLng([this.layers[0].features[0].lat, 
-				this.layers[0].features[0].lon]);
+			// let latLng = L.latLng([this.layers[0].features[0].lat, 
+			// 	this.layers[0].features[0].lon]);
+			let latLng = L.latLng([this.entries[0].lat, 
+				this.entries[0].lon]);
 
 			// this.map = L.map('mapdiv').setView([this.layers[0].features[0].lat, 
 			// 	this.layers[0].features[0].lon], 8);
@@ -259,7 +172,7 @@ var mapApp = new Vue({
 				+ 'background/{z}/{x}/{y}.png',
 			  {
 		    	minZoom: 7,
-			    maxZoom: 12,
+			    maxZoom: 11,
 				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, '
 						+ '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; '
 						+ 'Map data &copy; ' 
@@ -271,7 +184,7 @@ var mapApp = new Vue({
 			  'map/tiles/treat/{z}/{x}/{y}.png',
 			  {
 		    	minZoom: 7,
-			    maxZoom: 12,
+			    maxZoom: 11,
 			    // tms: true,  // required by local hitchcock map, not carto etc.
 			    attribution: 'Treat map'
 			  }
@@ -287,7 +200,7 @@ var mapApp = new Vue({
 		        + 'target="_blank">Mapzen</a>',
 				// bounds: mybounds,
 				minZoom: 7,
-				maxZoom: 12
+				maxZoom: 11
 		    });
 
 			// this.baseLayer.addTo(this.map);
@@ -328,7 +241,12 @@ var mapApp = new Vue({
 			this.markerList = [];
 			// Add link to attribute the source for this
 			// Need to understand => and "this" better
-			this.layers[0].features.forEach((feature, index) => {
+			// this.layers[0].features.forEach((feature, index) => {
+
+
+			console.log(" -- pre loop entries, length: " + this.entries.length);
+
+			this.entries.forEach((feature, index) => {
 			// this.layers[0].features.forEach(function(feature) {
 				// console.log(" - lat: " + feature.lat); // feature.coords
 				this.markerList.push(L.marker([feature.lat, feature.lon], {icon: this.treatIcon})
@@ -387,11 +305,19 @@ var mapApp = new Vue({
 
 			// Update data to contain new journal entry
 			// this.entry = siteListJson[this.currIndex];
-			this.entry = this.layers[0].features[this.currIndex];
+
+
+
+			// this.entry = this.layers[0].features[this.currIndex];
+			this.entry = this.entries[this.currIndex];
+
+
+
+
 			// console.log(" - this.entry.name: " + this.entry.name);
 
 			// Update imageShortName independently -- used for flipImage
-			this.imgname = this.entry.shortName;
+			this.imgname = this.entry.slug;
 			console.log(" -- imgname: " + this.imgname);
 
 			this.clearHighlights();
@@ -415,9 +341,16 @@ var mapApp = new Vue({
 		},
 		initContent: function() {
 			// this.entry = siteListJson[0]
-			this.entry = this.layers[0].features[0];
+
+
+			console.log("-- first title: " + this.entries[0].title);
+
+			// this.entry = this.layers[0].features[0];
+			this.entry = this.entries[0];
+
+
 			// image set independently for flipImage
-			this.imgname = this.entry.shortName;
+			this.imgname = this.entry.slug;
 			// this.setEntry(0, 9)
 		},
 		layerChanged: function() {
@@ -443,7 +376,8 @@ var mapApp = new Vue({
 			// }
 		},
 		flipDrawing: function() {
-			// console.log(" -- flippable name ending: " + this.imgname.substring(this.imgname.length - 5, this.imgname.length));
+			// console.log(" -- flippable name ending: " + 
+			// this.imgname.substring(this.imgname.length - 5, this.imgname.length));
 			if (this.imgname.substring(this.imgname.length - 5, this.imgname.length) == "_down") {
 				// ends with _down
 				// console.log(" -- trimmed name: " + this.imgname.substring(0, this.imgname.length - 5));
