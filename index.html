@@ -62,41 +62,37 @@
 
 		<section class="journal-info-panel">
 
-			<!-- markup in treat.js -->
-			<header-block 
-				v-bind:anentry="entry">
-			</header-block>
-			
-			<nav class="entry-nav">
-				<p>
-					<template v-if="true" style="display: block;"> 
-						<a href = "#" v-on:click.prevent = "incrementEntry('prev')">previous</a> | 
-					</template>
+			<!-- Introduction - conditional -->
+			<template v-if="isIntro" style="display: block;"> 
+				<header>
+					<h3>Introduction</h3>
+					<h2>Explore Joseph Treat's Map and Journal</h2>
+				</header>
+				<div class="journal-text">		
+					<span v-html="entry.entry_text"></span>
+					<a href = "#" v-on:click = "startJourney()">BEGIN EXPLORING</a>
+				</div><!-- /journal-text -->
+			</template>
+			<template v-else style="display: block;"> 
+				<!-- markup in treat.js -->
+				<header-block 
+					v-bind:anentry="entry">
+				</header-block>
+				
+				<nav-block 
+					v-bind:anentry="entry">
+				</nav-block>
+				
+				<!-- markup in treat.js -->
+				<journal-item 
+				v-bind:anentry="entry"   
+				v-bind:imgname="imgname"   
+				></journal-item>
 
-					x/yy 
-
-					<a href = "#" v-on:click = "incrementEntry('next')">next</a>
-				</p>
-			</nav>
-			
-			<!-- markup in treat.js -->
-			<journal-item 
-			v-bind:anentry="entry"   
-			v-bind:imgname="imgname"   
-			></journal-item>
-
-
-			<nav class="entry-nav">
-				<p>
-					<!-- <a href="#previous-entry">previous</a>  -->
-					<template v-if="true" style="display: block;"> 
-						<a href = "#" v-on:click.prevent = "incrementEntry('prev')">previous</a> | 
-					</template>
-					x/yy 
-					<!-- <a href="#next-entry">next</a> -->
-					<a href = "#" v-on:click = "incrementEntry('next')">next</a>
-				</p>
-			</nav><!-- /entry-nav -->
+				<nav-block 
+					v-bind:anentry="entry">
+				</nav-block>
+			</template>
 			
 		</section> <!-- /entry-panel -->
 

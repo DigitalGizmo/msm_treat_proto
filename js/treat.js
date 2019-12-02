@@ -7,7 +7,7 @@ Vue.component('header-block', {
 	methods: {
 		cToIntro: function() {
 			// console.log(" -- flip in component");
-			this.$parent.setEntry(0);
+			this.$parent.goIntro();
 		},
 	},
 	template: `
@@ -18,6 +18,27 @@ Vue.component('header-block', {
 			<h2>{{ anentry.title }}</h2>
 			<p>{{ anentry.day }} {{ anentry.month }} 1820</p> <!-- Don changed date to p -->
 		</header>
+	`
+})
+
+Vue.component('nav-block', {
+	props: ['anentry'],
+	methods: {
+		cIncrementEntry: function(direction) {
+			// console.log(" -- flip in component");
+			this.$parent.incrementEntry(direction);
+		},
+	},
+	template: `
+		<nav class="entry-nav">
+			<p>
+				<template v-if="true" style="display: block;"> 
+					<a href = "#" v-on:click.prevent = "cIncrementEntry('prev')">previous</a> | 
+				</template>
+				x/yy 
+				<a href = "#" v-on:click = "cIncrementEntry('next')">next</a>
+			</p>
+		</nav><!-- /entry-nav -->
 	`
 })
 
@@ -73,6 +94,7 @@ var mapApp = new Vue({
 		markerList: [null], // indexed array for markers
 		siteMarkers: null, // layer group
 		imgname: null,
+		isIntro: true,
 		// JSON to be
 
 		// entries: [{"title":"Joseph Init","slug":"intro","entry_date":"16 September, 1820","lat":45.0,"lon":-68.767824,"zoom_level":8,"is_flippable":false,"entry_text":"<p>Introduction to the project.</p>"}],
@@ -291,6 +313,20 @@ var mapApp = new Vue({
 			});
 
 		},
+		startJourney: function() {
+			this.isIntro = false;
+			this.incrementEntry('next');
+		},
+		goIntro: function() {
+			this.isIntro = true;
+			this.setEntry(0);
+			// Custom setEntry - no marker
+			// this.currIndex = 0;
+			// this.entry = this.entries[0];
+			// this.clearHighlights();
+
+
+		},
 		incrementEntry: function(nextOrPrev) {
 			if(nextOrPrev == 'next') {
 				// Temp hard code zoom level - will eventually be in data.
@@ -322,9 +358,12 @@ var mapApp = new Vue({
 
 			this.clearHighlights();
 
-
-			// Highlight the marker (here instead of as a function of the marker itself)
-			this.markerList[newEntIndex].setIcon(mapApp.selectedIcon);
+			if(this.currIndex > 0) {
+				// Highlight the marker (here instead of as a function of the marker itself)
+				this.markerList[newEntIndex].setIcon(mapApp.selectedIcon);
+			} else { // this is intro, hide marker
+				// this.markerList[newEntIndex].setIcon(mapApp.selectedIcon);
+			}
 
 			// Set the new map zoom location
 			// Had big problems here with "this"-- scope issues "myApp" works
