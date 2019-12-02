@@ -35,7 +35,6 @@ Vue.component('nav-block', {
 				<template v-if="true" style="display: block;"> 
 					<a href = "#" v-on:click.prevent = "cIncrementEntry('prev')">previous</a> | 
 				</template>
-				x/yy 
 				<a href = "#" v-on:click = "cIncrementEntry('next')">next</a>
 			</p>
 		</nav><!-- /entry-nav -->
@@ -313,21 +312,14 @@ var mapApp = new Vue({
 			});
 
 		},
-		startJourney: function() {
-			this.isIntro = false;
-			this.incrementEntry('next');
-		},
 		goIntro: function() {
 			this.isIntro = true;
 			this.setEntry(0);
-			// Custom setEntry - no marker
-			// this.currIndex = 0;
-			// this.entry = this.entries[0];
-			// this.clearHighlights();
-
-
 		},
 		incrementEntry: function(nextOrPrev) {
+			// In case of click from intro
+			// this.isIntro = false;
+			// In any case
 			if(nextOrPrev == 'next') {
 				// Temp hard code zoom level - will eventually be in data.
 				this.setEntry(this.currIndex + 1)
@@ -340,15 +332,7 @@ var mapApp = new Vue({
 			this.currIndex = newEntIndex;
 
 			// Update data to contain new journal entry
-			// this.entry = siteListJson[this.currIndex];
-
-
-
-			// this.entry = this.layers[0].features[this.currIndex];
 			this.entry = this.entries[this.currIndex];
-
-
-
 
 			// console.log(" - this.entry.name: " + this.entry.name);
 
@@ -359,6 +343,8 @@ var mapApp = new Vue({
 			this.clearHighlights();
 
 			if(this.currIndex > 0) {
+				// Since this not (or no longer) intro:
+				this.isIntro = false;
 				// Highlight the marker (here instead of as a function of the marker itself)
 				this.markerList[newEntIndex].setIcon(mapApp.selectedIcon);
 			} else { // this is intro, hide marker

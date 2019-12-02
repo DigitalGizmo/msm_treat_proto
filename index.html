@@ -70,7 +70,7 @@
 				</header>
 				<div class="journal-text">		
 					<span v-html="entry.entry_text"></span>
-					<a href = "#" v-on:click = "startJourney()">BEGIN EXPLORING</a>
+					<a href = "#" v-on:click = "incrementEntry('next')">BEGIN EXPLORING</a>
 				</div><!-- /journal-text -->
 			</template>
 			<template v-else style="display: block;"> 
