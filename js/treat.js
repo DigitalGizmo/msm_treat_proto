@@ -96,26 +96,15 @@ var mapApp = new Vue({
 		isIntro: true,
 		// JSON to be
 
-		// entries: [{"title":"Joseph Init","slug":"intro","entry_date":"16 September, 1820","lat":45.0,"lon":-68.767824,"zoom_level":8,"is_flippable":false,"entry_text":"<p>Introduction to the project.</p>"}],
+		// entries: [{"title":"Joseph Init","slug":"intro","entry_date":"16 September, 1820",
+		// "lat":45.0,"lon":-68.767824,"zoom_level":8,"is_flippable":false,
+		// "entry_text":"<p>Introduction to the project.</p>"}],
 
 		entries: [],
 
 		// entry: null,
 		entry: { slug: 'placeholder'},
 
-		// need non-null intialization. Will be overwritten by 1st real data via initContent
-		// entry: {
-		// 	  ordinal: 0,
-		// 	  slug: 'amherst-college',
-		// 	  zoomLevel: 10,
-		// 	  title: "Amherst College [pre-init]",
-		// 	  lat: 44,
-		// 	  lon: -69,
-		// 	  month: 'September',
-		// 	  day: '',
-		// 	  isFlippable: false,
-		// 	  entry_text: "<p>[vue-data init - placeholder]</p>",
-		// 	},
 	}, // end data
 
 	created: function () {
@@ -181,7 +170,9 @@ var mapApp = new Vue({
 
 			// // Base Layer
 			// this.baseLayer = L.tileLayer(
-			//   'https://api.mapbox.com/styles/v1/mapbox/donaldo/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIzNmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
+			//   'https://api.mapbox.com/styles/v1/mapbox/donaldo/tiles/{z}/{x}/{y}
+			//		?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIz
+			// 		Nmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
 			//   {
 		 //    	minZoom: 7,
 			//     maxZoom: 12,
@@ -360,8 +351,9 @@ var mapApp = new Vue({
 			let latLng = L.latLng([this.entry.lat, 
 				this.entry.lon]);
 
-			// mapApp.map.setView(latLng, this.entry.zoomLevel) 
-			mapApp.map.setViewOffset(latLng,[offset,0],this.entry.zoomLevel)
+			// console.log("-- in setEntry, pre setView, zoom_level: " + this.entry.zoom_level);
+			// mapApp.map.setView(latLng, this.entry.zoom_level);
+			mapApp.map.setViewOffset(latLng,[offset,0],this.entry.zoom_level)
 
 		},
 		initContent: function() {
