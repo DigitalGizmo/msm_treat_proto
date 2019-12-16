@@ -16,7 +16,11 @@ Vue.component('header-block', {
 				v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a>
 			</h3>
 			<h2>{{ anentry.title }}</h2>
-			<p>{{ anentry.day }} {{ anentry.month }} 1820</p> <!-- Don changed date to p -->
+			<p>{{ anentry.entry_date }}</p> 
+			<span v-html="anentry.interpret_blurb"></span>
+			<template v-if="anentry.interpret_more" style="display: block;"> 
+				<a href = "#">more</a> 
+			</template>
 		</header>
 	`
 })
@@ -197,7 +201,7 @@ var mapApp = new Vue({
 			  {
 		    	minZoom: 7,
 			    maxZoom: 11,
-			    // tms: true,  // required by local hitchcock map, not carto etc.
+			    tms: true,  // required by local hitchcock map, not carto etc.
 			    attribution: 'Treat map'
 			  }
 			);
