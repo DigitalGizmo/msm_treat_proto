@@ -178,7 +178,7 @@ var mapApp = new Vue({
 			//		?access_token=pk.eyJ1IjoiZG9uYWxkbyIsImEiOiJjaWxjbTZ0eXIz
 			// 		Nmh5dTJsemozOTRwbWViIn0.xB0UB2teNew30PzKpxHSDA',
 			//   {
-		 //    	minZoom: 7,
+			//     minZoom: 7,
 			//     maxZoom: 12,
 			// 	attribution: 'Mapbox Don',		  }			
 			// );
@@ -222,6 +222,20 @@ var mapApp = new Vue({
 			// this.baseLayer.addTo(this.map);
 
 			this.greenleafLayer.addTo(this.map);
+
+		    // Add path
+		    // console.log("-- treat path: " + treatPathGeoJ.type);
+		    // this.treatPath = new L.GeoJSON(treatPathGeoJ);
+			function linestyle(feature) {
+				return {
+					weight: 2,
+					opacity: 1,
+					dashArray: (8, 7),
+					color: '#bd4219',  //Outline color
+				};
+			}
+		    this.treatPath = new L.GeoJSON(treatPathGeoJ, {style: linestyle});
+			this.treatPath.addTo(this.map);
 
 			// this.map.addLayer(this.roads);
 			// this.roads.addTo(this.map);
