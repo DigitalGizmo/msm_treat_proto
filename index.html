@@ -55,6 +55,23 @@
 						v-on:change="roadsChanged()"
 					/>Current Roads &amp; Towns -- showing: {{ roadsShowing }}
 				</label>
+
+				<input 
+					type="radio" 
+					id="three" 
+					v-model="locatorOn"
+					v-bind:value="true"
+				/>
+				<label for="three">Locator On</label>				
+				<input 
+					type="radio" 
+					id="four" 
+					v-model="locatorOn"
+					v-bind:value="false"
+				/>			
+				<label for="four">Locator Off</label>		
+
+
 			</div><!-- /map-layers-control -->
 
 		</div><!-- /map-wrapper-->

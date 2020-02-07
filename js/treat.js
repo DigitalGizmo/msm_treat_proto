@@ -98,6 +98,7 @@ var mapApp = new Vue({
 		siteMarkers: null, // layer group
 		imgname: null,
 		isIntro: true,
+		locatorOn: false,
 		// JSON to be
 
 		// entries: [{"title":"Joseph Init","slug":"intro","entry_date":"16 September, 1820",
@@ -141,16 +142,20 @@ var mapApp = new Vue({
 			// this.addLayer();
 			this.initContent();
 		},
-
+		getLocation: function(e) {
+			// if (e.shiftKey) { didn't work
+			if (this.locatorOn) {
+			    alert("Lat, Lon : " + e.latlng.lat.toFixed(4) + ", " + e.latlng.lng.toFixed(4))
+				// this.isKeyPressed(e);
+			} // else {	alert(" locator is off"); }
+		},
 		initMap() {
-
 			// Create function for marker "center" offset.
 			L.Map.prototype.setViewOffset = function (latlng, offset, targetZoom) {
 			    var targetPoint = this.project(latlng, targetZoom).subtract(offset),
 			    targetLatLng = this.unproject(targetPoint, targetZoom);
 			    return this.setView(targetLatLng, targetZoom);
 			}			
-
 
 			// Define map
 			// let latLng = L.latLng([this.layers[0].features[0].lat, 
@@ -239,6 +244,13 @@ var mapApp = new Vue({
 
 			// this.map.addLayer(this.roads);
 			// this.roads.addTo(this.map);
+
+			// Show lat and long on click
+			this.map.on('click', function(e) {
+				mapApp.getLocation(e);
+			});			
+
+
 		}, // end init map
 		initLayers() {
 			// custom marker
@@ -399,6 +411,15 @@ var mapApp = new Vue({
 				this.greenleafLayer.addTo(this.map);			
 			}
 		},
+		// locatorChanged: function() {
+		// 	if(this.whichLayer == "terrain") {
+		// 		this.greenleafLayer.removeFrom(this.map);
+		// 		this.terrainLayer.addTo(this.map);			
+		// 	} else {
+		// 		this.terrainLayer.removeFrom(this.map);
+		// 		this.greenleafLayer.addTo(this.map);			
+		// 	}
+		// },
 		roadsChanged: function() {
 			console.log("- got to roadsShowing: " + this.roadsShowing);
 			// roadsShowing is changed by v-model and checkbox value
