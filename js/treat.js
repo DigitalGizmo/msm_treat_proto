@@ -143,11 +143,17 @@ var mapApp = new Vue({
 			this.initContent();
 		},
 		getLocation: function(e) {
+			// called by mouse click on map
 			// if (e.shiftKey) { didn't work
 			if (this.locatorOn) {
-			    alert("Lat, Lon : " + e.latlng.lat.toFixed(4) + ", " + e.latlng.lng.toFixed(4))
+			    alert("Lat, Lon : " + e.latlng.lat.toFixed(4) + ", " + e.latlng.lng.toFixed(4));
+			    // document.getElementById("app").style.cursor = "pointer";
 				// this.isKeyPressed(e);
 			} // else {	alert(" locator is off"); }
+		},
+		cursorTo: function (style) {
+			console.log(" -- cursorTo " + style);
+		    document.getElementById("mapdiv").style.cursor = style;
 		},
 		initMap() {
 			// Create function for marker "center" offset.
@@ -245,7 +251,12 @@ var mapApp = new Vue({
 			// this.map.addLayer(this.roads);
 			// this.roads.addTo(this.map);
 
-			// Show lat and long on click
+			// Show lat and long on click.
+			// The event sent is a leaflet event, not directly
+			// meaningful to Vue. But I don't know how to handle
+			// a shiftKey modifier or "state" variable in leaflet land,
+			// so I'm sending the event to the Vue instance, from 
+			// "outside" of Vue, as it were -- that's why I can't use .this.
 			this.map.on('click', function(e) {
 				mapApp.getLocation(e);
 			});			

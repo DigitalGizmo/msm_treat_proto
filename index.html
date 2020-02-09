@@ -61,13 +61,14 @@
 					id="three" 
 					v-model="locatorOn"
 					v-bind:value="true"
+					v-on:click="cursorTo('pointer')"					
 				/>
 				<label for="three">Locator On</label>				
 				<input 
 					type="radio" 
 					id="four" 
 					v-model="locatorOn"
-					v-bind:value="false"
+					v-bind:value="false"					
 				/>			
 				<label for="four">Locator Off</label>		
 
