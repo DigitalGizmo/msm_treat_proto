@@ -92,20 +92,39 @@
 				</div><!-- /journal-text -->
 			</template>
 			<template v-else style="display: block;"> 
-				<!-- markup in treat.js -->
-				<header-block 
-					v-bind:anentry="entry">
-				</header-block>
+
+				<!-- Header -->
+				<h3><a href="#" 
+					v-on:click.prevent="goIntro">INTRO - Explore Joseph Treat's Journey</a>
+				</h3>
+				<h2>{{ entry.title }}</h2>
+				<p>{{ entry.entry_date }}</p> 
+				<span v-html="entry.interpret_blurb"></span>
+				<template v-if="entry.interpret_more" style="display: block;"> 
+					<a href = "#">more</a> 
+				</template>
 				
 				<nav-block 
 					v-bind:anentry="entry">
 				</nav-block>
 				
-				<!-- markup in treat.js -->
-				<journal-item 
-				v-bind:anentry="entry"   
-				v-bind:imgname="imgname"   
-				></journal-item>
+				<!-- Journal Entry -->
+				<div class="journal-image">
+					<!-- imgname is derived from slug, but independent for flip -->
+					<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
+					<ul class="image-controls">
+						<li v-if="entry.is_flippable">
+							<p><a href = "#" 
+									v-on:click.prevent = "flipDrawing">flip drawing</a>
+							</p>
+						</li>
+						<li><a href="#popup-window">view larger version</a></li>
+					</ul>
+				</div><!-- /journal-image -->
+
+				<div class="journal-text">
+					<span v-html="entry.entry_text"></span>
+				</div><!-- /journal-text -->
 
 				<nav-block 
 					v-bind:anentry="entry">

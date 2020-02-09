@@ -2,29 +2,6 @@
 // Needed for $http.get
 Vue.use(VueResource)
 
-Vue.component('header-block', {
-	props: ['anentry'],
-	methods: {
-		cToIntro: function() {
-			// console.log(" -- flip in component");
-			this.$parent.goIntro();
-		},
-	},
-	template: `
-		<header>
-			<h3><a href="#" 
-				v-on:click.prevent = "cToIntro()">INTRO - Explore Joseph Treat's Journey</a>
-			</h3>
-			<h2>{{ anentry.title }}</h2>
-			<p>{{ anentry.entry_date }}</p> 
-			<span v-html="anentry.interpret_blurb"></span>
-			<template v-if="anentry.interpret_more" style="display: block;"> 
-				<a href = "#">more</a> 
-			</template>
-		</header>
-	`
-})
-
 Vue.component('nav-block', {
 	props: ['anentry'],
 	methods: {
@@ -45,40 +22,6 @@ Vue.component('nav-block', {
 	`
 })
 
-Vue.component('journal-item', {
-	// Prop variable name is touchy -- needs to be neither camelCase nor kebob-case
-	props: ['anentry', 'imgname'],
-	methods: {
-		// Could alternatively use: this.$emit('click') 
-		// per https://stackoverflow.com/questions/46208610/call-parent-method-with-component
-		cFlipDrawing: function() {
-			// console.log(" -- flip in component");
-			this.$parent.flipDrawing();
-		},
-	},
-	template: `
-		<span>
-			<div class="journal-image">
-				<img v-bind:src="'images/menupics/' + imgname + '.jpg'" />
-
-				<ul class="image-controls">
-					<li v-if="anentry.is_flippable">
-						<p>
-							<a href = "#" 
-								v-on:click.prevent = "cFlipDrawing()">flip drawing
-							</a>
-						</p>
-					</li>
-					<li><a href="#popup-window">view larger version</a></li>
-				</ul>
-			</div><!-- /journal-image -->
-
-			<div class="journal-text">
-				<span v-html="anentry.entry_text"></span>
-			</div><!-- /journal-text -->
-		</span>
-	`
-})
 
 var mapApp = new Vue({
 	el: '#app',
@@ -116,7 +59,6 @@ var mapApp = new Vue({
 		console.log('-- created')
 		this.fetchData();
 	},
-
 	// Using callback from $http instead of mounted for inits
 	// mounted() { },
 
